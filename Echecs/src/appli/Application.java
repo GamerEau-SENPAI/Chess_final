@@ -1,6 +1,10 @@
 package appli;
+
+import plateau.Plateau;
+
 public class Application {
 	public static void main(String[] args) {
-		System.out.print("Hello world");
+		Plateau plat = new Plateau();
+		plat.affichage();
 	}
 }
