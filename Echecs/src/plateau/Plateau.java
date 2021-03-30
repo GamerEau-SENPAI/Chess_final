@@ -2,6 +2,8 @@ package plateau;
 
 import java.util.Arrays;
 
+import piece.Piece;
+
 public class Plateau {
 	private String plateau[][];
 	private final int SIZE=10;
@@ -30,19 +32,41 @@ public class Plateau {
         
 
 	}
-	
+	public void setTab(Piece a) {
+		this.plateau[a.getX()][a.getY()] = a.toString();
+		
+		
+	}
+	private Boolean PeutAfficher(int i, int j) {
+		if(i==0) {
+			return false;
+		}
+		if(i==9)
+			return false;
+		else
+			return true;
+
+	}
 	public String toString() {
 		StringBuilder s = new StringBuilder();
 		for(int i=0;i<SIZE;++i) {
 			for(int j=0;j<SIZE;++j) {
 				if(i==0 || i>8) {
-					s.append("  ");
+					s.append("   ");
 				}
+				if(PeutAfficher(i,j))
+					if(j>0)
+						s.append("|");
 				s.append(plateau[i][j]);
 			}
+			s.append(System.lineSeparator());
+			s.append("  ");
+			for(int a=0;a<SIZE;++a)
+				if(i<9)
+				s.append("---");
+			s.append("-");
 			s.append(System.lineSeparator());
 		}
 	return s.toString();
 	}
 }
-
