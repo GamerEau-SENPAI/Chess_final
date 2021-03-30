@@ -14,6 +14,7 @@ public class Plateau {
 	public Plateau() {
 		char[] alphabet = new char[SIZE];
 		int cpt=0;
+		int cptInv=8;
 		int ligne=SIZE;
 		int colonne=SIZE;
 		this.plateau=new String[ligne][colonne];
@@ -26,8 +27,9 @@ public class Plateau {
             cpt++;
         }
 		for(int i=1;i<SIZE-1;++i) {
-			this.plateau[i][0]=String.valueOf(i);
-			this.plateau[i][SIZE-1]=String.valueOf(i);
+			this.plateau[i][0]=String.valueOf(cptInv);
+			this.plateau[i][SIZE-1]=String.valueOf(cptInv);
+			cptInv--;
 		}
         
 
@@ -47,6 +49,14 @@ public class Plateau {
 			return true;
 
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 	public String toString() {
 		StringBuilder s = new StringBuilder();
 		for(int i=0;i<SIZE;++i) {
@@ -61,10 +71,11 @@ public class Plateau {
 			}
 			s.append(System.lineSeparator());
 			s.append("  ");
-			for(int a=0;a<SIZE;++a)
-				if(i<9)
+			for(int a=0;a<SIZE-2;++a)
+				if(i<9) {
 				s.append("---");
-			s.append("-");
+				s.append(" ");
+				}
 			s.append(System.lineSeparator());
 		}
 	return s.toString();
