@@ -59,15 +59,17 @@ public class Application {
 		int b = charToInt(entree,1);
 		for(int i=0;i<pieces.length;++i) {
 			if(pieces[i].getY()==a && pieces[i].getX()==b) {
-				plat.cls(b,a);
-				pieces[i].setXY(charToInt(entree,3),index(entree,2));
-				plat.setTab(pieces[i]);
+				if(pieces[i].estPossible(charToInt(entree,3),index(entree,2) )) {
+					plat.cls(b,a);
+					pieces[i].setXY(charToInt(entree,3),index(entree,2));
+					plat.setTab(pieces[i]);
+				}else {
+					System.out.println("");
+					System.out.print("n'est pas possible");
+					System.out.println("");
+					}
 			}
-		}
-		
-		
-		
-		
+		}	
 	}
 	
 	
