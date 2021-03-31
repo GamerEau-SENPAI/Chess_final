@@ -21,8 +21,10 @@ public class Application {
 	}
 	private static char[] CreationVal() {
 		char[] val = new char[9];
-		for(char i='1';i<'9';++i) {
-			val[i-'1']=i;
+		int cpt=1;
+		for(char i='8';i>'0';--i) {
+			val[cpt]=i;
+			cpt++;
 		}
 		return val;
 	}
@@ -37,12 +39,18 @@ public class Application {
 	}
 	private static int charToInt(String a, int x) { // x=1 ou 3
 		char[] val = CreationVal();
-		for(int i=0;i<10;++i) {
+		for(int i=0;i<9;++i) {
 			if(a.charAt(x)==val[i]) {
-				return i+1;
+				return i;
 			}
 		}
 		return 0;
+	}
+	private static int covert(int a) {
+		
+		
+		return 0;
+		
 	}
 	private static void jouer(Plateau plat, Piece[] pieces) {
 		Scanner saisie = new Scanner(System.in);
