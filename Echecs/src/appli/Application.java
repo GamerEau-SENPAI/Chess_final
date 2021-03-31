@@ -51,6 +51,7 @@ public class Application {
 		int b = charToInt(entree,1);
 		for(int i=0;i<pieces.length;++i) {
 			if(pieces[i].getY()==a && pieces[i].getX()==b) {
+				plat.cls(b,a);
 				pieces[i].setXY(index(entree,2), charToInt(entree,3));
 				plat.setTab(pieces[i]);
 			}

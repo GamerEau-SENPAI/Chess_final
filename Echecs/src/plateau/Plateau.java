@@ -34,6 +34,10 @@ public class Plateau {
         
 
 	}
+	public void cls(int x, int y) {
+		this.plateau[x][y]="   ";
+		
+	}
 	public void setTab(Piece a) {
 		this.plateau[a.getX()][a.getY()] = a.toString();
 		
