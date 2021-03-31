@@ -52,7 +52,7 @@ public class Application {
 		for(int i=0;i<pieces.length;++i) {
 			if(pieces[i].getY()==a && pieces[i].getX()==b) {
 				plat.cls(b,a);
-				pieces[i].setXY(index(entree,2), charToInt(entree,3));
+				pieces[i].setXY(charToInt(entree,3),index(entree,2));
 				plat.setTab(pieces[i]);
 			}
 		}
