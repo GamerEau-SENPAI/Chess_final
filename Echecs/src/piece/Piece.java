@@ -2,13 +2,14 @@ package piece;
 
 import plateau.Plateau;
 
-public class Piece {
+public abstract class Piece {
 	private int x;
 	private int y;
-	private char nom='P';
-	public Piece(Plateau p,int x, int y) {
+	private boolean couleur;
+	public Piece(Plateau p,int x, int y, boolean col) {
 		this.x=x;
 		this.y=y;
+		this.couleur=col;
 		p.setTab(this);
 		
 	}
@@ -19,14 +20,11 @@ public class Piece {
 	public int getX() {
 		return this.x;
 	}
-	public char getNom() {
-		return this.nom;
+	public boolean getCol() {
+		return this.couleur;
 	}
 	public int getY() {
 		return this.y;
 	}
-	public String toString() {
-		return " P ";
-		
-	}
+	public abstract String toString();
 }

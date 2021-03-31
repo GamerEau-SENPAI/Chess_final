@@ -49,14 +49,6 @@ public class Plateau {
 			return true;
 
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	public String toString() {
 		StringBuilder s = new StringBuilder();
 		for(int i=0;i<SIZE;++i) {
