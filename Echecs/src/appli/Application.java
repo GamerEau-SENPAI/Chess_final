@@ -8,7 +8,7 @@ import plateau.Plateau;
 
 
 
-
+/*Vérification*/
 public class Application {
 	
 	
