@@ -19,6 +19,14 @@ public class PieceRoi extends Piece {
 			return true;
 		if(x==super.getX() && y==super.getY()-1)
 			return true;
+		if(x==super.getX()+1 && y==super.getY()+1) /**/
+			return true;
+		if(x==super.getX()+1 && y==super.getY()-1)
+			return true;
+		if(x==super.getX()-1 && y==super.getY()-1)
+			return true;
+		if(x==super.getX()-1 && y==super.getY()+1)
+			return true;
 		
 		
 		
