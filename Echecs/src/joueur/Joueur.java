@@ -3,6 +3,7 @@ package joueur;
 import java.util.Scanner;
 
 import piece.Piece;
+import piece.PieceFou;
 import piece.PieceRoi;
 import plateau.Plateau;
 
@@ -48,6 +49,11 @@ public class Joueur {
 	}
 	public void ajoutRoi(Plateau plat, int x, int y, boolean couleur) {
 		this.pieces[cpt]= new PieceRoi(plat,x,y,couleur);
+		cpt++;
+	}
+	public void ajoutFou(Plateau plat, int x, int y, boolean couleur) {
+		this.pieces[cpt]= new PieceFou(plat,x,y,couleur);
+		cpt++;
 	}
 	public Piece[] getPieces() {
 		return this.pieces;

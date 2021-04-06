@@ -6,11 +6,8 @@ public class PieceRoi extends Piece {
 
 	public PieceRoi(Plateau p, int x, int y, boolean couleur) {
 		super(p, x, y, couleur);
-		// TODO Auto-generated constructor stub
 	}
 	public boolean estPossible(int x, int y) {
-		super.getX();
-		super.getY();
 		if(x==super.getX()+1 && y==super.getY())
 			return true;
 		if(x==super.getX()-1 && y==super.getY())

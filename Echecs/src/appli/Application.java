@@ -16,10 +16,12 @@ public class Application {
 	
 	public static void main(String[] args) {
 		Plateau plat = new Plateau();
-		Joueur j1 = new Joueur(1, false);
+		Joueur j1 = new Joueur(2, false);
 		Joueur j2 = new Joueur(1, true);
 		j1.ajoutRoi(plat, 2, 7, false);
+		j1.ajoutFou(plat, 2, 2, false);
 		j2.ajoutRoi(plat, 3, 6, true);
+		
 		do {
 			 do{
 				 System.out.print(plat);
