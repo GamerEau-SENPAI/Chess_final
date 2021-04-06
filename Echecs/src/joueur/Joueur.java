@@ -26,7 +26,7 @@ public class Joueur {
 		for(int i=0;i<j.getPieces().length;++i) {
 			if(j.getPiecea(i).getX()==x && j.getPiecea(i).getY()==y) {
 				if(j.getPiecea(i).getCol()!=this.pieces[i].getCol()) {
-				/*A changer*/pieces[i] = null;
+				j.getPiecea(i).EteMange();
 				}
 			}
 		}

@@ -34,11 +34,15 @@ public class PieceRoi extends Piece {
 	}
 	@Override
 	public String toString() {
+		if(this.EstVivante()) {
+			
+		
 		if(super.getCol()==false)
 			return " r ";
 		else
 			return " R ";
-		
+		}
+		return "   ";
 	}
 
 }
