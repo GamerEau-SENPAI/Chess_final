@@ -1,9 +1,5 @@
 package appli;
-import java.util.Scanner;
-
 import joueur.Joueur;
-import piece.Piece;
-import piece.PieceRoi;
 /*30/03/21*/
 import plateau.Plateau;
 

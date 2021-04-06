@@ -7,8 +7,7 @@ import piece.Piece;
 public class Plateau {
 	private String plateau[][];
 	private final int SIZE=10;
-	private String[] alp = new String[SIZE];
-	private int taille[]=new int[SIZE];
+
 	
 	
 	public Plateau() {

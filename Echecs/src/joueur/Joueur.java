@@ -15,6 +15,19 @@ public class Joueur {
 		this.cpt=0;
 		this.monTour=monTour;
 	}
+	/*@Brief return true si au min 1 piece est vivante
+	 * 
+	 * 
+	 */
+	public boolean RestePiece() {
+		for(int i=0;i<pieces.length;++i) {
+			if(pieces[i].EstVivante()) {
+				return true;
+			}
+			
+		}
+		return false;
+	}
 	public boolean EstTour() {
 		return this.monTour;
 	}
@@ -86,7 +99,11 @@ public class Joueur {
 					this.EtreMangé(charToInt(entree,3), index(entree,2), j);
 					pieces[i].setXY(charToInt(entree,3),index(entree,2));
 					plat.setTab(pieces[i]);
-					this.monTour=false;
+					if(j.RestePiece()) {
+						monTour=false;
+					}else
+						monTour=true;
+					
 				}else {
 					System.out.println("");
 					System.out.print("n'est pas possible");

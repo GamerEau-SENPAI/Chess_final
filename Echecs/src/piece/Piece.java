@@ -27,12 +27,18 @@ public abstract class Piece {
 		this.y=y;
 	}
 	public int getX() {
+		if(!this.EstVivante()) {
+			return 10;
+		}
 		return this.x;
 	}
 	public boolean getCol() {
 		return this.couleur;
 	}
 	public int getY() {
+		if(!this.EstVivante()) {
+			return 10;
+		}
 		return this.y;
 	}
 	public abstract String toString();
