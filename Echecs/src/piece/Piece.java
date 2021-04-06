@@ -13,6 +13,7 @@ public abstract class Piece {
 		p.setTab(this);
 		
 	}
+
 	public abstract boolean estPossible(int x, int y);
 	public void setXY(int x, int y) {
 		this.x=x;
