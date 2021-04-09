@@ -9,10 +9,12 @@ import plateau.Plateau;
 
 public class Joueur {
 	private Piece[] pieces;
+	private int[] nbrpos;
 	private int cpt;
 	private boolean monTour;
 	public Joueur(int qte, boolean monTour) {
 		this.pieces= new Piece[qte];
+		this.nbrpos = new int[qte];
 		this.cpt=0;
 		this.monTour=monTour;
 	}
@@ -100,7 +102,7 @@ public class Joueur {
 		int b = charToInt(entree,1);
 		for(int i=0;i<pieces.length;++i) {
 			if(pieces[i].getY()==a && pieces[i].getX()==b) {
-				if(pieces[i].estPossible(charToInt(entree,3),index(entree,2) )) {
+				if(pieces[i].estPossible(charToInt(entree,3),index(entree,2))) {
 					plat.cls(b,a);
 					this.EtreMangé(charToInt(entree,3), index(entree,2), j);
 					pieces[i].setXY(charToInt(entree,3),index(entree,2));
@@ -117,5 +119,31 @@ public class Joueur {
 					}
 			}
 		}	
+	}
+	private static int chercheRoi(Joueur j) {
+		for(int i=0; i<j.pieces.length;++i) {
+			if(j.pieces[i].toString().equals("r") || j.pieces[i].toString().equals("R")) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	public boolean EstEchecEtMat(Joueur j, int x, int y) {
+		int Roi= chercheRoi(j);
+		int test=0;
+		for(int i=0; i<this.pieces.length;++i) {
+			this.nbrpos[i] = pieces[i].nbrPos(x, y);
+			for(int k=0; k<this.nbrpos[i];++k) {
+				if(this.pieces[i].estPossible(x, y) && j.pieces[Roi].estPossible(x, y) ) {
+					test++;
+				}
+			}
+				
+		}
+		if(test==j.pieces[Roi].nbrPos(x, y)) {
+			return true;
+		}
+	return false;
+		
 	}
 }

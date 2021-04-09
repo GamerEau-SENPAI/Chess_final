@@ -43,5 +43,10 @@ public class PieceRoi extends Piece {
 		}
 		return "   ";
 	}
+	@Override
+	public int nbrPos(int x, int y) {
+		
+		return 0;
+	}
 
 }

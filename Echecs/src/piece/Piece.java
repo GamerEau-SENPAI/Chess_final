@@ -26,6 +26,7 @@ public abstract class Piece {
 		this.x=x;
 		this.y=y;
 	}
+	public abstract int nbrPos(int x, int y);
 	public int getX() {
 		if(!this.EstVivante()) {
 			return 10;

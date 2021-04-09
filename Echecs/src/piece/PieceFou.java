@@ -24,6 +24,22 @@ public class PieceFou extends Piece {
 		}
 		return false;
 	}
+	public int nbrPos(int x, int y) {
+		int nbr=0;
+	if(x<9 && x>0 && y<9 && y>0 ) {
+		for(int i=1;i<10;++i) {
+			if(x==super.getX()+i && y==super.getY()+i)
+				nbr++;
+			if(x==super.getX()-i && y==super.getY()+i)
+				nbr++;
+			if(x==super.getX()+i && y==super.getY()-i)
+				nbr++;
+			if(x==super.getX()-i && y==super.getY()-i)
+				nbr++;
+				}
+			}
+		return nbr;
+	}
 
 	@Override
 	public String toString() {
