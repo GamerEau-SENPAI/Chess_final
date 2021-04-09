@@ -18,19 +18,25 @@ public class Application {
 		Plateau plat = new Plateau();
 		Joueur j1 = new Joueur(2, false);
 		Joueur j2 = new Joueur(1, true);
-		j1.ajoutRoi(plat, 2, 7, false);
-		j1.ajoutFou(plat, 2, 2, false);
-		j2.ajoutRoi(plat, 3, 6, true);
+		j1.ajoutRoi(plat, 4, 1, false);
+		j1.ajoutFou(plat, 2, 3, false);
+		j2.ajoutRoi(plat, 1, 1, true);
 		
 		do {
 			 do{
 				 System.out.print(plat);
 				j1.jouer(plat,j2);
+				if(j1.EstEchecEtMat(j2)) {
+					System.out.print("Echec !");
+				};
 				
 			}while(j1.EstTour());
 			do{
 				System.out.print(plat);
 				j2.jouer(plat, j1);
+				if(j2.EstEchecEtMat(j1)) {
+					System.out.print("Echec !");
+				};
 			}while(j2.EstTour());
 		
 		}while(EstFinie());

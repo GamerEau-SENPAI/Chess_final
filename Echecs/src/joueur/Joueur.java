@@ -122,7 +122,7 @@ public class Joueur {
 	}
 	private static int chercheRoi(Joueur j) {
 		for(int i=0; i<j.pieces.length;++i) {
-			if(j.pieces[i].toString().equals("r") || j.pieces[i].toString().equals("R")) {
+			if(j.pieces[i].estRoi()) {
 				return i;
 			}
 		}
@@ -133,18 +133,16 @@ public class Joueur {
 		int test=0;
 		for(int x=0;x<8;++x){
 			for(int y=0;y<8;++y){
-				for(int i=0; i<this.pieces.length;++i) {
-					this.nbrpos[i] = pieces[i].nbrPos(x, y);
-					for(int k=0; k<this.nbrpos[i];++k) {
+				for(int i=0; i<this.pieces.length;i++) {
 						if(this.pieces[i].estPossible(x, y) && j.pieces[Roi].estPossible(x, y) ) {
 							test++;
-						}
 					}
 						
 				}
 			}
 		}
-		if(test==j.pieces[Roi].nbrPos(x,y) {
+		
+		if(test==j.pieces[Roi].nbrPos(j.pieces[Roi].getX(),j.pieces[Roi].getY())) {
 			return true;
 		}
 	return false;

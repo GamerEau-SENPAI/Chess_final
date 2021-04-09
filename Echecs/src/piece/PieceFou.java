@@ -52,4 +52,8 @@ public class PieceFou extends Piece {
 		}
 		return "   ";
 	}
+	@Override
+	public boolean estRoi() {
+		return false;
+	}
 }

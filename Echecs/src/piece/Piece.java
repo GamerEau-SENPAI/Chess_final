@@ -33,6 +33,7 @@ public abstract class Piece {
 		}
 		return this.x;
 	}
+	public abstract boolean estRoi();
 	public boolean getCol() {
 		return this.couleur;
 	}
