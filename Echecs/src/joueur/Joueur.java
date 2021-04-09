@@ -128,19 +128,23 @@ public class Joueur {
 		}
 		return -1;
 	}
-	public boolean EstEchecEtMat(Joueur j, int x, int y) {
+	public boolean EstEchecEtMat(Joueur j) {
 		int Roi= chercheRoi(j);
 		int test=0;
-		for(int i=0; i<this.pieces.length;++i) {
-			this.nbrpos[i] = pieces[i].nbrPos(x, y);
-			for(int k=0; k<this.nbrpos[i];++k) {
-				if(this.pieces[i].estPossible(x, y) && j.pieces[Roi].estPossible(x, y) ) {
-					test++;
+		for(int x=0;x<8;++x){
+			for(int y=0;y<8;++y){
+				for(int i=0; i<this.pieces.length;++i) {
+					this.nbrpos[i] = pieces[i].nbrPos(x, y);
+					for(int k=0; k<this.nbrpos[i];++k) {
+						if(this.pieces[i].estPossible(x, y) && j.pieces[Roi].estPossible(x, y) ) {
+							test++;
+						}
+					}
+						
 				}
 			}
-				
 		}
-		if(test==j.pieces[Roi].nbrPos(x, y)) {
+		if(test==j.pieces[Roi].nbrPos(x,y) {
 			return true;
 		}
 	return false;

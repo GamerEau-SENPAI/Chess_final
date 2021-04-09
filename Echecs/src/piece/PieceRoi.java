@@ -45,8 +45,26 @@ public class PieceRoi extends Piece {
 	}
 	@Override
 	public int nbrPos(int x, int y) {
-		
-		return 0;
+		int te=0;
+		if(x<9 && x>0 && y<9 && y>0 ) {
+			if(x==super.getX()+1 && y==super.getY())
+				te++;
+			if(x==super.getX()-1 && y==super.getY())
+				te++;
+			if(x==super.getX() && y==super.getY()+1)
+				te++;
+			if(x==super.getX() && y==super.getY()-1)
+				te++;
+			if(x==super.getX()+1 && y==super.getY()+1) /**/
+				te++;
+			if(x==super.getX()+1 && y==super.getY()-1)
+				te++;
+			if(x==super.getX()-1 && y==super.getY()-1)
+				te++;
+			if(x==super.getX()-1 && y==super.getY()+1)
+				te++;
+		}
+		return te;
 	}
 
 }
