@@ -10,15 +10,17 @@ public class PieceFou extends Piece {
 	}
 	@Override
 	public boolean estPossible(int x, int y) {
+		if(x<9 && x>0 && y<9 && y>0 ) {
 		for(int i=1;i<10;++i) {
-			if(x==super.getX()+i && y==super.getY()+i)
-				return true;
-			if(x==super.getX()-i && y==super.getY()+i)
-				return true;
-			if(x==super.getX()+i && y==super.getY()-i)
-				return true;
-			if(x==super.getX()-i && y==super.getY()-i)
-				return true;
+				if(x==super.getX()+i && y==super.getY()+i)
+					return true;
+				if(x==super.getX()-i && y==super.getY()+i)
+					return true;
+				if(x==super.getX()+i && y==super.getY()-i)
+					return true;
+				if(x==super.getX()-i && y==super.getY()-i)
+					return true;
+			}
 		}
 		return false;
 	}

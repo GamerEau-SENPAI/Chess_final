@@ -8,22 +8,24 @@ public class PieceRoi extends Piece {
 		super(p, x, y, couleur);
 	}
 	public boolean estPossible(int x, int y) {
-		if(x==super.getX()+1 && y==super.getY())
-			return true;
-		if(x==super.getX()-1 && y==super.getY())
-			return true;
-		if(x==super.getX() && y==super.getY()+1)
-			return true;
-		if(x==super.getX() && y==super.getY()-1)
-			return true;
-		if(x==super.getX()+1 && y==super.getY()+1) /**/
-			return true;
-		if(x==super.getX()+1 && y==super.getY()-1)
-			return true;
-		if(x==super.getX()-1 && y==super.getY()-1)
-			return true;
-		if(x==super.getX()-1 && y==super.getY()+1)
-			return true;
+		if(x<9 && x>0 && y<9 && y>0 ) {
+			if(x==super.getX()+1 && y==super.getY())
+				return true;
+			if(x==super.getX()-1 && y==super.getY())
+				return true;
+			if(x==super.getX() && y==super.getY()+1)
+				return true;
+			if(x==super.getX() && y==super.getY()-1)
+				return true;
+			if(x==super.getX()+1 && y==super.getY()+1) /**/
+				return true;
+			if(x==super.getX()+1 && y==super.getY()-1)
+				return true;
+			if(x==super.getX()-1 && y==super.getY()-1)
+				return true;
+			if(x==super.getX()-1 && y==super.getY()+1)
+				return true;
+		}
 		
 		
 		

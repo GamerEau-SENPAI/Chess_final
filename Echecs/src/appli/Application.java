@@ -2,7 +2,7 @@ package appli;
 import joueur.Joueur;
 /*30/03/21*/
 import plateau.Plateau;
-/* Oui */
+/* NON */
 
 
 /*Vérification*/
