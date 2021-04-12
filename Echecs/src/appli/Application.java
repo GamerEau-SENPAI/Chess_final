@@ -16,11 +16,18 @@ public class Application {
 	
 	public static void main(String[] args) {
 		Plateau plat = new Plateau();
-		Joueur j1 = new Joueur(2, false);
-		Joueur j2 = new Joueur(1, true);
-		j1.ajoutRoi(plat, 4, 1, false);
+		Joueur j1 = new Joueur(5, false);
+		Joueur j2 = new Joueur(5, true);
+		j1.ajoutRoi(plat, 2, 4, false);
 		j1.ajoutFou(plat, 2, 3, false);
-		j2.ajoutRoi(plat, 1, 1, true);
+		j1.ajoutFou(plat, 2, 5, false);
+		j1.ajoutTour(plat, 2, 2, false);
+		j1.ajoutTour(plat, 2, 6, false);
+		j2.ajoutRoi(plat, 7, 4, true);
+		j2.ajoutFou(plat, 7, 3, true);
+		j2.ajoutFou(plat, 7, 5, true);
+		j2.ajoutTour(plat, 7, 2, true);
+		j2.ajoutTour(plat, 7, 6, true);
 		
 		do {
 			 do{

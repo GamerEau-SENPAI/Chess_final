@@ -5,6 +5,7 @@ import java.util.Scanner;
 import piece.Piece;
 import piece.PieceFou;
 import piece.PieceRoi;
+import piece.PieceTour;
 import plateau.Plateau;
 
 public class Joueur {
@@ -51,6 +52,10 @@ public class Joueur {
 	}
 	public void ajoutRoi(Plateau plat, int x, int y, boolean couleur) {
 		this.pieces[cpt]= new PieceRoi(plat,x,y,couleur);
+		cpt++;
+	}
+	public void ajoutTour(Plateau plat, int x, int y, boolean couleur) {
+		this.pieces[cpt]= new PieceTour(plat,x,y,couleur);
 		cpt++;
 	}
 	public void ajoutFou(Plateau plat, int x, int y, boolean couleur) {
