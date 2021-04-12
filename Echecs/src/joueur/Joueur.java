@@ -107,15 +107,16 @@ public class Joueur {
 		int b = charToInt(entree,1);
 		for(int i=0;i<pieces.length;++i) {
 			if(pieces[i].getY()==a && pieces[i].getX()==b) {
-				if(pieces[i].estPossible(charToInt(entree,3),index(entree,2))) {
+				if(pieces[i].estPossible(charToInt(entree,3),index(entree,2),j)) {
 					plat.cls(b,a);
 					this.EtreMangé(charToInt(entree,3), index(entree,2), j);
 					pieces[i].setXY(charToInt(entree,3),index(entree,2));
 					plat.setTab(pieces[i]);
 					if(j.RestePiece()) {
 						monTour=false;
-					}else
+					}else {
 						monTour=true;
+						}
 					
 				}else {
 					System.out.println("");
@@ -133,13 +134,20 @@ public class Joueur {
 		}
 		return -1;
 	}
+	public boolean estOccupeParMoi(int x, int y) {
+		for(int i=0; i< this.pieces.length;++i) {
+			if(x==pieces[i].getX() || y==pieces[i].getY())
+				return true;
+		}
+		return false;
+	}
 	public boolean EstEchecEtMat(Joueur j) {
 		int Roi= chercheRoi(j);
 		int test=0;
 		for(int x=0;x<8;++x){
 			for(int y=0;y<8;++y){
 				for(int i=0; i<this.pieces.length;i++) {
-						if(this.pieces[i].estPossible(x, y) && j.pieces[Roi].estPossible(x, y) ) {
+						if(this.pieces[i].estPossible(x, y, this) && j.pieces[Roi].estPossible(x, y,j) ) {
 							test++;
 					}
 						

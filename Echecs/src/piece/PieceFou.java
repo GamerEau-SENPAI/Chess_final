@@ -1,5 +1,6 @@
 package piece;
 
+import joueur.Joueur;
 import plateau.Plateau;
 
 public class PieceFou extends Piece {
@@ -9,17 +10,21 @@ public class PieceFou extends Piece {
 		super(p, x, y, couleur);
 	}
 	@Override
-	public boolean estPossible(int x, int y) {
+	public boolean estPossible(int x, int y, Joueur j) {
 		if(x<9 && x>0 && y<9 && y>0 ) {
 		for(int i=1;i<10;++i) {
 				if(x==super.getX()+i && y==super.getY()+i)
-					return true;
+					if(this.recontrepiece(super.getX()+i, super.getY()+i, j))
+						return true;
 				if(x==super.getX()-i && y==super.getY()+i)
-					return true;
+					if(this.recontrepiece(super.getX()-i, super.getY()+i, j))
+						return true;
 				if(x==super.getX()+i && y==super.getY()-i)
-					return true;
+					if(this.recontrepiece(super.getX()+i, super.getY()-i, j))
+						return true;
 				if(x==super.getX()-i && y==super.getY()-i)
-					return true;
+					if(this.recontrepiece(super.getX()-i, super.getY()-i, j))
+						return true;
 			}
 		}
 		return false;
@@ -56,4 +61,6 @@ public class PieceFou extends Piece {
 	public boolean estRoi() {
 		return false;
 	}
+
+
 }

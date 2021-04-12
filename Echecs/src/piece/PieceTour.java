@@ -1,5 +1,6 @@
 package piece;
 
+import joueur.Joueur;
 import plateau.Plateau;
 
 public class PieceTour extends Piece {
@@ -10,17 +11,34 @@ public class PieceTour extends Piece {
 	}
 
 	@Override
-	public boolean estPossible(int x, int y) {
+	public boolean estPossible(int x, int y, Joueur j) {
 		if(x<9 && x>0 && y<9 && y>0 ) {
 		for(int i=1;i<10;++i) {
+			if(super.recontrepiece(super.getX()+i, super.getY(), j)) { /*s'il y a une pièce*/
+				return false;
+			}else {
 				if(x==super.getX()+i && y==super.getY())
 					return true;
+			}
+			if(super.recontrepiece(super.getX()-i, super.getY(), j)) {
+				return false;
+			}else {
 				if(x==super.getX()-i && y==super.getY())
 					return true;
+			}
+			if(super.recontrepiece(super.getX(), super.getY()+i, j)) {
+				return false;
+			}else {
 				if(x==super.getX() && y==super.getY()+i)
 					return true;
+				
+			}
+			if(super.recontrepiece(super.getX(), super.getY()-i, j)) {
+				return false;
+			}else {
 				if(x==super.getX() && y==super.getY()-i)
 					return true;
+			}
 			}
 		}
 		return false;

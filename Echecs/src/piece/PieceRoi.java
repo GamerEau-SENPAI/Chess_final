@@ -1,5 +1,6 @@
 package piece;
 
+import joueur.Joueur;
 import plateau.Plateau;
 
 public class PieceRoi extends Piece {
@@ -7,7 +8,7 @@ public class PieceRoi extends Piece {
 	public PieceRoi(Plateau p, int x, int y, boolean couleur) {
 		super(p, x, y, couleur);
 	}
-	public boolean estPossible(int x, int y) {
+	public boolean estPossible(int x, int y, Joueur j) {
 		if(x<9 && x>0 && y<9 && y>0 ) {
 			if(x==super.getX()+1 && y==super.getY())
 				return true;
@@ -94,5 +95,7 @@ public class PieceRoi extends Piece {
 		}
 		return te;
 	}
+
+
 
 }
