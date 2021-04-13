@@ -31,7 +31,7 @@ public class Application {
 		
 		do {
 			 do{
-				 System.out.println("C'est à A");
+				 System.out.println("C'est aux petites lettres");
 				 System.out.print(plat);
 				j1.jouer(plat,j2);
 				if(j1.EstEchecEtMat(j2)) {
@@ -39,7 +39,7 @@ public class Application {
 				}
 			}while(j1.EstTour());
 			do{
-				System.out.println("C'est à B");
+				System.out.println("C'est aux grandes lettres");
 				System.out.print(plat);
 				j2.jouer(plat, j1);
 				if(j2.EstEchecEtMat(j1)) {

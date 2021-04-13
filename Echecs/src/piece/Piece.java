@@ -8,6 +8,7 @@ public abstract class Piece {
 	private int y;
 	private boolean vivante;
 	private boolean couleur;
+	private int premierPassage=0;
 	public Piece(Plateau p,int x, int y, boolean col) {
 		this.x=x;
 		this.y=y;
@@ -15,6 +16,9 @@ public abstract class Piece {
 		this.vivante = true;
 		p.setTab(this);
 		
+	}
+	public void setPassage(int i) {
+		premierPassage=i;
 	}
 	public boolean EstVivante() {
 		return this.vivante;
@@ -48,9 +52,21 @@ public abstract class Piece {
 	
 	
 	public boolean recontrepiece(int x, int y, Joueur j) {
+		int x1 = x;
+		int y1=y;
+		if(this.x>x){
+			x1 = x+1;
+		}
+		if(this.x < x) {
+			x1 = x-1;
+		}if(this.y >y) {
+			y1= y+1;
+		}if(this.y < y) {
+			y1 = y-1;
+		}
 		for(int i=0; i<j.getPieces().length;++i) {
-			if(x==j.getPiecea(i).getX() && y==j.getPiecea(i).getY()) {
-				return j.getPiecea(i).EstVivante();
+			if((x1==j.getPiecea(i).getX() && y1==j.getPiecea(i).getY())) {
+				return true; /*j.getPiecea(i).EstVivante()*/
 			}
 		}
 		return false;

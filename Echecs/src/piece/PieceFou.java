@@ -13,18 +13,31 @@ public class PieceFou extends Piece {
 	public boolean estPossible(int x, int y, Joueur j) {
 		if(x<9 && x>0 && y<9 && y>0 ) {
 		for(int i=1;i<10;++i) {
+			if(this.recontrepiece(super.getX()+i, super.getY()+i, j)) {
+				return false;
+			}else {
 				if(x==super.getX()+i && y==super.getY()+i)
-					if(this.recontrepiece(super.getX()+i, super.getY()+i, j))
-						return true;
+					return true;
+			}
+			if(this.recontrepiece(super.getX()-i, super.getY()+i, j)) {
+				return false;
+			}else {
 				if(x==super.getX()-i && y==super.getY()+i)
-					if(this.recontrepiece(super.getX()-i, super.getY()+i, j))
-						return true;
+					return true;
+			}
+			if(this.recontrepiece(super.getX()+i, super.getY()-i, j)) {
+				return false;
+			}else {
 				if(x==super.getX()+i && y==super.getY()-i)
-					if(this.recontrepiece(super.getX()+i, super.getY()-i, j))
-						return true;
+					return true;
+			}
+			if(this.recontrepiece(super.getX()-i, super.getY()-i, j)) {
+				return false;
+			}else {
 				if(x==super.getX()-i && y==super.getY()-i)
-					if(this.recontrepiece(super.getX()-i, super.getY()-i, j))
-						return true;
+					return true;
+			}
+				
 			}
 		}
 		return false;

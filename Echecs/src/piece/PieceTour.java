@@ -12,10 +12,11 @@ public class PieceTour extends Piece {
 
 	@Override
 	public boolean estPossible(int x, int y, Joueur j) {
+		this.setPassage(0);
 		if(x<9 && x>0 && y<9 && y>0 ) {
 		for(int i=1;i<10;++i) {
 			if(super.recontrepiece(super.getX()+i, super.getY(), j)) { /*s'il y a une pièce*/
-				return false;
+				return false; 
 			}else {
 				if(x==super.getX()+i && y==super.getY())
 					return true;
