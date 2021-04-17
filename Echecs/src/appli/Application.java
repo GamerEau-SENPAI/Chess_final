@@ -34,8 +34,8 @@ public class Application {
 				 System.out.println("C'est aux petites lettres");
 				 System.out.print(plat);
 				j1.jouer(plat,j2);
-				if(j2.EstEchecEtMat(j1)) {
-					System.out.print("Echec !");
+				if(j1.EstEchecEtMat(j2) || j2.EstEchecEtMat(j1)) {
+					System.out.println("Echec !");
 				}
 			}while(j1.EstTour());
 			do{
@@ -43,7 +43,7 @@ public class Application {
 				System.out.print(plat);
 				j2.jouer(plat, j1);
 				if(j1.EstEchecEtMat(j2) || j2.EstEchecEtMat(j1)) {
-					System.out.print("Echec !");
+					System.out.println("Echec !");
 				};
 			}while(j2.EstTour());
 		
