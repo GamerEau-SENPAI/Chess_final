@@ -142,23 +142,39 @@ public class Joueur {
 		return false;
 	}
 	public boolean EstEchecEtMat(Joueur j) {
+		boolean tab[][] = new boolean[8][8];
+		for(int i=0;i<8;++i) {
+			for(int k=0;k<8;++k) {
+				tab[i][k]=false;
+			}
+		}
 		int Roi= chercheRoi(j);
-		int test=0;
+		int coincidence=0;
 		for(int x=0;x<8;++x){
 			for(int y=0;y<8;++y){
 				for(int i=0; i<this.pieces.length;i++) {
-						if(this.pieces[i].estPossible(x, y, this) && j.pieces[Roi].estPossible(x, y,j) ) {
-							test++;
-					}
+						if(this.pieces[i].estPossible(x, y, j) && j.pieces[Roi].estPossible(x, y,this) ) {
+							if(this.pasDoublons(tab,x, y)) {
+								coincidence++;
+							}
+								
+						}
 						
 				}
 			}
 		}
-		
-		if(test==j.pieces[Roi].nbrPos(j.pieces[Roi].getX(),j.pieces[Roi].getY())) {
+		if(coincidence==j.pieces[Roi].nbrPos(j.pieces[Roi].getX(),j.pieces[Roi].getY())) {
 			return true;
 		}
 	return false;
 		
 	}
+	private boolean pasDoublons(boolean tab[][],int x, int y) {
+		if(tab[x][y]==false) { // Si la case n'est pas visité
+			tab[x][y]=true;		//bah mtn si 
+			return true;
+		}
+		return false;
+	}
+	
 }

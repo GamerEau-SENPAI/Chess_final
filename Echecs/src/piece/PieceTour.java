@@ -16,29 +16,37 @@ public class PieceTour extends Piece {
 		if(x<9 && x>0 && y<9 && y>0 ) {
 		for(int i=1;i<10;++i) {
 			if(recontrepiece(super.getX()+i, super.getY(), j)) { /*s'il y a une pièce*/
+
 				return false; 
 			}else {
-				if(x==super.getX()+i && y==super.getY())
+				if(x==super.getX()+i && y==super.getY()){
 					return true;
+				}
 			}
 			if(recontrepiece(super.getX()-i, super.getY(), j)) {
+
 				return false;
 			}else {
-				if(x==super.getX()-i && y==super.getY())
+				if(x==super.getX()-i && y==super.getY()){
 					return true;
+				}
 			}
 			if(recontrepiece(super.getX(), super.getY()+i, j)) {
+
 				return false;
 			}else {
-				if(x==super.getX() && y==super.getY()+i)
+				if(x==super.getX() && y==super.getY()+i){
 					return true;
+				}
 				
 			}
 			if(recontrepiece(super.getX(), super.getY()-i, j)) {
+
 				return false;
 			}else {
-				if(x==super.getX() && y==super.getY()-i)
+				if(x==super.getX() && y==super.getY()-i) {
 					return true;
+				}
 			}
 			}
 		}
