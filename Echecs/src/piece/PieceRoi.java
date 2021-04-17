@@ -95,6 +95,11 @@ public class PieceRoi extends Piece {
 		}
 		return te;
 	}
+	@Override
+	public boolean recontrepiece(int x, int y, Joueur j) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 
 

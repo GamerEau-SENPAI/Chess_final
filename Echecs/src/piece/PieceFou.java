@@ -74,6 +74,32 @@ public class PieceFou extends Piece {
 	public boolean estRoi() {
 		return false;
 	}
+	@Override
+	public boolean recontrepiece(int x, int y, Joueur j) {
+		int x1 = x;
+		int y1=y;
+		if(super.getX()>x && super.getY() >y){
+			x1 = x+1;
+			y1= y+1;
+		}
+		if(super.getX() < x && super.getY() >y) {
+			x1 = x-1;
+			y1= y+1;
+		}if(super.getY() < y && super.getX() > x ) {
+			y1= y-1;
+			x1 = x+1;
+			
+		}if(super.getY() < y && super.getX() < x) {
+			y1 = y-1;
+			x1 = x-1;
+		}
+		for(int i=0; i<j.getPieces().length;++i) {
+			if((x1==j.getPiecea(i).getX() && y1==j.getPiecea(i).getY())) {
+				return true; /*j.getPiecea(i).EstVivante()*/
+			}
+		}
+		return false;
+	}
 
 
 }

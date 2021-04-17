@@ -51,24 +51,5 @@ public abstract class Piece {
 	public abstract String toString();
 	
 	
-	public boolean recontrepiece(int x, int y, Joueur j) {
-		int x1 = x;
-		int y1=y;
-		if(this.x>x){
-			x1 = x+1;
-		}
-		if(this.x < x) {
-			x1 = x-1;
-		}if(this.y >y) {
-			y1= y+1;
-		}if(this.y < y) {
-			y1 = y-1;
-		}
-		for(int i=0; i<j.getPieces().length;++i) {
-			if((x1==j.getPiecea(i).getX() && y1==j.getPiecea(i).getY())) {
-				return true; /*j.getPiecea(i).EstVivante()*/
-			}
-		}
-		return false;
-	}
+	public abstract boolean recontrepiece(int x, int y, Joueur j);
 }
