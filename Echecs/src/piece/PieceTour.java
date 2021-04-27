@@ -95,5 +95,128 @@ public class PieceTour extends Piece {
 			}
 			return "   ";
 	}
+	
+	
+	public boolean peutSeMettreDev(boolean tab[][], Joueur j) {
+		System.out.println("Verification d'une tour");
+		int x=0;
+		int y=0;
+		int x1 = super.getX();
+		int y1=super.getY();
+		for(int i=0;i<tab.length;++i) {
+			for(int k=0;k<tab[0].length;++k) {
+				if(tab[i][k]==true) {
+					System.out.println("Pour x : " + i + " Pour y : " + k);
+					System.out.println("resultat du 1er if :" + (x1==i) + " " + (y1<k));
+					if( x1==i && y1<k) {
+						for(int a=0;a<y;++a) {
+							for(int b=0;b<j.getPieces().length;++b) {
+								System.out.println("1- Pour this :" + this.estPossible(x1, y1+a, j) + " Pour j" + j.getPiecea(i).estPossible(x1, y1+a, j));
+								if(this.estPossible(x1, y1+a, j) && j.getPiecea(i).estPossible(x1, y1+a, j) ) {
+									System.out.println(true);
+									return true;
+								}
+							}
+						}
+					}
+					System.out.println("resultat du 2eme if :" + (x1==i) + " " + (y1>k));
+					if(x1==i && y1>k) {
+						for(int a=0;a<y;++a) {
+							for(int b=0;b<j.getPieces().length;++b) {
+								System.out.println("2-Pour this :" + this.estPossible(x1, y1+a, j) + " Pour j" + j.getPiecea(i).estPossible(x1, y1+a, j));
+								if(this.estPossible(x1, y1-a, j) && j.getPiecea(i).estPossible(x1, y1-a, j) ) {
+									System.out.println(true);
+									return true;
+									
+								}
+							}
+						}
+					}
+					System.out.println("resultat du 3eme if :"+ (x1<i) + " " + (y1==k));
+					if(x1<i && y1==k) {
+						for(int a=0;a<y;++a) {
+							for(int b=0;b<j.getPieces().length;++b) {
+								System.out.println("3-Pour this :" + this.estPossible(x1, y1+a, j) + " Pour j" + j.getPiecea(i).estPossible(x1, y1+a, j));
+								if(this.estPossible(x1+a, y1, j) && j.getPiecea(i).estPossible(x1+a, y1, j) ) {
+									System.out.println(true);
+									return true;
+									
+								}
+							}
+						}
+					}
+					System.out.println("resultat du 4eme if :" + (y1==i) + " " + (x1>k));
+					if(x1>i && y1==k) {
+						for(int a=0;a<y;++a) {
+							for(int b=0;b<j.getPieces().length;++b) {
+								System.out.println("4-Pour this :" + this.estPossible(x1, y1+a, j) + " Pour j" + j.getPiecea(i).estPossible(x1, y1+a, j));
+								if(this.estPossible(x1-a, y1, j) && j.getPiecea(i).estPossible(x1-a, y1, j) ) {
+									System.out.println(true);
+									return true;
+								}
+							}
+						}
+					}
+					
+				}
+			}
+		}
+		System.out.println(false);
+		return false;
+		
+	}
+	@Override
+	public boolean verificationMat(boolean[][] tab, Joueur quiApelle, Joueur j) {
+		
+		for(int i=0;i<tab.length;++i) {  // x
+			for(int k=0;k<tab[0].length;++k) { //y
+				if(tab[i][k]==true) {
+					
+					if(super.getX()==i && super.getY() <k){
+						for(int a=1;a<k;++a) {	//Pour toutes les cases jusqu'au roi possibles
+							for(int p=0;p<j.getPieces().length;++p){
+								if(this.estPossible(i, super.getY()+a, j) && j.getPiecea(i).estPossible(i, super.getY()+a, quiApelle)) { // Si moi je peux, et lui aussi : c'est pas bon
+									return false;
+								}
+							}
+						}
+					}
+					if(super.getX() == i && super.getY() >k) { //gauche
+						for(int a=k;a>k;--a) {	//Pour toutes les cases jusqu'au roi possibles
+							for(int p=0;p<j.getPieces().length;++p){
+								if(this.estPossible(i, super.getY()-a, j) && j.getPiecea(i).estPossible(i, super.getY()-a, quiApelle)) { // Si moi je peux, et lui aussi : c'est pas bon
+									return false;
+								}
+							
+							}
+						}
+					}			
+					if(super.getY() == k && super.getX() > i ) {
+									//haut
+						for(int a=i;a<i;++a) {	//Pour toutes les cases jusqu'au roi possibles
+							for(int p=0;p<j.getPieces().length;++p){
+								if(this.estPossible(i, super.getX()+a, j) && j.getPiecea(i).estPossible(i, super.getX()+a, quiApelle)) { // Si moi je peux, et lui aussi : c'est pas bon
+									return false;
+								}
+							
+							}
+						}
+						
+					}if(super.getY() == k && super.getX() < i) {
+									//bas
+						for(int a=i;a>i;--a) {	//Pour toutes les cases jusqu'au roi possibles
+							for(int p=0;p<j.getPieces().length;++p){
+								if(this.estPossible(i, super.getX()-a, j) && j.getPiecea(i).estPossible(i, super.getX()-a, quiApelle)) { // Si moi je peux, et lui aussi : c'est pas bon
+									return false;
+								}
+							
+							}
+						}
+					}
+				}
+			}
+		}
+		return true;
+	}
 
 }

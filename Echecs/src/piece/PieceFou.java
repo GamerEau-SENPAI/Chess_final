@@ -13,29 +13,34 @@ public class PieceFou extends Piece {
 	public boolean estPossible(int x, int y, Joueur j) {
 		if(x<9 && x>0 && y<9 && y>0 ) {
 		for(int i=1;i<10;++i) {
-			if(this.recontrepiece(super.getX()+i, super.getY()+i, j)) {
+			if(recontrepiece(super.getX()+i, super.getY()+i, j)) {
 				return false;
 			}else {
-				if(x==super.getX()+i && y==super.getY()+i)
+				if(x==super.getX()+i && y==super.getY()+i) {
 					return true;
+				}
+					
 			}
-			if(this.recontrepiece(super.getX()-i, super.getY()+i, j)) {
+			if(recontrepiece(super.getX()-i, super.getY()+i, j)) {
 				return false;
 			}else {
-				if(x==super.getX()-i && y==super.getY()+i)
+				if(x==super.getX()-i && y==super.getY()+i) {
 					return true;
+				}
 			}
-			if(this.recontrepiece(super.getX()+i, super.getY()-i, j)) {
+			if(recontrepiece(super.getX()+i, super.getY()-i, j)) {
 				return false;
 			}else {
-				if(x==super.getX()+i && y==super.getY()-i)
+				if(x==super.getX()+i && y==super.getY()-i) {
 					return true;
+				}
 			}
-			if(this.recontrepiece(super.getX()-i, super.getY()-i, j)) {
+			if(recontrepiece(super.getX()-i, super.getY()-i, j)) {
 				return false;
 			}else {
-				if(x==super.getX()-i && y==super.getY()-i)
+				if(x==super.getX()-i && y==super.getY()-i) {
 					return true;
+				}
 			}
 				
 			}
@@ -76,8 +81,8 @@ public class PieceFou extends Piece {
 	}
 	@Override
 	public boolean recontrepiece(int x, int y, Joueur j) {
-		int x1 = x;
-		int y1=y;
+		int x1 = x-1;
+		int y1=y-1;
 		if(super.getX()>x && super.getY() >y){
 			x1 = x+1;
 			y1= y+1;
@@ -98,6 +103,63 @@ public class PieceFou extends Piece {
 				return true; /*j.getPiecea(i).EstVivante()*/
 			}
 		}
+		return false;
+	}
+	@Override
+	public boolean verificationMat(boolean[][] tab, Joueur quiApelle, Joueur j) {
+		for(int i=0;i<tab.length;++i) {  // x
+			for(int k=0;k<tab[0].length;++k) { //y
+				if(tab[i][k]==true) {
+					if(super.getX()>i && super.getY() >k){
+						for(int a=0;a<k;++a) {	//Pour toutes les cases jusqu'au roi possibles
+							for(int p=0;p<j.getPieces().length;++p){
+								if(this.estPossible(super.getX()+i, super.getY()+a, j) && j.getPiecea(i).estPossible(i, a, quiApelle)) { // Si moi je peux, et lui aussi : c'est pas bon
+									return false;
+								}
+							}
+						}
+					}
+					if(super.getX() > i && super.getY() <k) { //gauche
+						for(int a=0;a>k;++a) {	//Pour toutes les cases jusqu'au roi possibles
+							for(int p=0;p<j.getPieces().length;++p){
+								if(this.estPossible(super.getX()-i, super.getY()-a, j) && j.getPiecea(i).estPossible(i, a, quiApelle)) { // Si moi je peux, et lui aussi : c'est pas bon
+									return false;
+								}
+							
+							}
+						}
+					}			
+					if(super.getY() > k && super.getX() < i ) {
+									//haut
+						for(int a=0;a>k;++a) {	//Pour toutes les cases jusqu'au roi possibles
+							for(int p=0;p<j.getPieces().length;++p){
+								if(this.estPossible(super.getX()-i, super.getY()-a, j) && j.getPiecea(i).estPossible(i, a, quiApelle)) { // Si moi je peux, et lui aussi : c'est pas bon
+									return false;
+								}
+							
+							}
+						}
+						
+					}if(super.getY() < k && super.getX() < i) {
+									//bas
+						for(int a=i;a>i;--i) {	//Pour toutes les cases jusqu'au roi possibles
+							for(int p=0;p<j.getPieces().length;++p){
+								if(this.estPossible(i, a, j) && j.getPiecea(i).estPossible(i, a, quiApelle)) { // Si moi je peux, et lui aussi : c'est pas bon
+									return false;
+								}
+							
+							}
+						}
+					}
+				}
+			}
+		}
+		return true;
+		
+	}
+	@Override
+	public boolean peutSeMettreDev(boolean[][] tab, Joueur j) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 

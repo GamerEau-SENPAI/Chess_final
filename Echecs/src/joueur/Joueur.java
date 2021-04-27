@@ -1,54 +1,46 @@
 package joueur;
 
-import java.util.Scanner;
-
 import piece.Piece;
 import piece.PieceFou;
 import piece.PieceRoi;
 import piece.PieceTour;
 import plateau.Plateau;
 
-public class Joueur {
+public abstract class Joueur {
 	private Piece[] pieces;
 	private int[] nbrpos;
 	private int cpt;
 	private boolean monTour;
+	private boolean tab[][];
 	public Joueur(int qte, boolean monTour) {
 		this.pieces= new Piece[qte];
 		this.nbrpos = new int[qte];
 		this.cpt=0;
 		this.monTour=monTour;
-	}
-	/*@Brief return true si au min 1 piece est vivante
-	 * 
-	 * 
-	 */
-	public boolean RestePiece() {
-		for(int i=0;i<pieces.length;++i) {
-			if(pieces[i].EstVivante()) {
-				return true;
+		tab = new boolean[8][8];
+		for(int i=0;i<8;++i) {
+			for(int k=0;k<8;++k) {
+				this.tab[i][k]=false;
 			}
-			
 		}
-		return false;
 	}
-	public boolean EstTour() {
-		return this.monTour;
+	public boolean[][] getTab(){
+		return this.tab;
+	}
+	public boolean getTab(int x, int y){
+		return this.tab[x][y];
+	}
+	public void setTab(int x, int y,boolean etat){
+		this.tab[x][y] = etat;
 	}
 	public Piece getPiecea(int i) {
 		return pieces[i];
 	}
-	public void EtreMangé(int x, int y, Joueur j) {
-		
-		for(int i=0;i<j.getPieces().length;++i) {
-			if(j.getPiecea(i).getX()==x && j.getPiecea(i).getY()==y) {
-				if(j.getPiecea(i).getCol()!=this.pieces[i].getCol()) {
-				j.getPiecea(i).EteMange();
-				}
-			}
-		}
-		
-		
+	public boolean EstTour() {
+		return this.monTour;
+	}
+	public void setTour(boolean tour) {
+		this.monTour = tour;
 	}
 	public void ajoutRoi(Plateau plat, int x, int y, boolean couleur) {
 		this.pieces[cpt]= new PieceRoi(plat,x,y,couleur);
@@ -81,7 +73,7 @@ public class Joueur {
 		}
 		return val;
 	}
-	private static int index(String a,int x) { // x=0 ou x=2
+	protected static int index(String a,int x) { // x=0 ou x=2
 		char[] alphabet = CreationAlp();
 		for(int i=0;i<10;++i) {
 			if(a.charAt(x)==alphabet[i]) {
@@ -90,7 +82,7 @@ public class Joueur {
 		}
 		return 0;
 	}
-	private static int charToInt(String a, int x) { // x=1 ou 3
+	public static int charToInt(String a, int x) { // x=1 ou 3
 		char[] val = CreationVal();
 		for(int i=0;i<9;++i) {
 			if(a.charAt(x)==val[i]) {
@@ -100,79 +92,31 @@ public class Joueur {
 		return 0;
 	}
 	
-	public void jouer(Plateau plat, Joueur j) {
-		Scanner saisie = new Scanner(System.in);
-		String entree = saisie.nextLine();
-		int a = index(entree,0);
-		int b = charToInt(entree,1);
-		for(int i=0;i<pieces.length;++i) {
-			if(pieces[i].getY()==a && pieces[i].getX()==b) {
-				if(pieces[i].estPossible(charToInt(entree,3),index(entree,2),j)) {
-					plat.cls(b,a);
-					this.EtreMangé(charToInt(entree,3), index(entree,2), j);
-					pieces[i].setXY(charToInt(entree,3),index(entree,2));
-					plat.setTab(pieces[i]);
-					if(j.RestePiece()) {
-						monTour=false;
-					}else {
-						monTour=true;
-						}
-					
-				}else {
-					System.out.println("");
-					System.out.print("n'est pas possible");
-					System.out.println("");
-					}
-			}
-		}	
-	}
-	private static int chercheRoi(Joueur j) {
-		for(int i=0; i<j.pieces.length;++i) {
-			if(j.pieces[i].estRoi()) {
+	public abstract void jouer(Plateau plat, Joueur j);
+	
+	public abstract boolean EstEchecEtMat(Joueur j);
+	
+	protected static int chercheRoi(Joueur j) {
+		for(int i=0; i<j.getPieces().length;++i) {
+			if(j.getPiecea(i).estRoi()) {
 				return i;
 			}
 		}
 		return -1;
 	}
-	public boolean estOccupeParMoi(int x, int y) {
-		for(int i=0; i< this.pieces.length;++i) {
-			if(x==pieces[i].getX() || y==pieces[i].getY())
+	public boolean RestePiece() {
+		for(int i=0;i<this.getPieces().length;++i) {
+			if(this.getPiecea(i).EstVivante()) {
 				return true;
+			}
+			
 		}
 		return false;
 	}
-	public boolean EstEchecEtMat(Joueur j) {
-		boolean tab[][] = new boolean[8][8];
-		for(int i=0;i<8;++i) {
-			for(int k=0;k<8;++k) {
-				tab[i][k]=false;
-			}
-		}
-		int Roi= chercheRoi(j);
-		int coincidence=0;
-		for(int x=0;x<8;++x){
-			for(int y=0;y<8;++y){
-				for(int i=0; i<this.pieces.length;i++) {
-						if(this.pieces[i].estPossible(x, y, j) && j.pieces[Roi].estPossible(x, y,this) ) {
-							if(this.pasDoublons(tab,x, y)) {
-								coincidence++;
-							}
-								
-						}
-						
-				}
-			}
-		}
-		if(coincidence==j.pieces[Roi].nbrPos(j.pieces[Roi].getX(),j.pieces[Roi].getY())) {
-			return true;
-		}
-	return false;
-		
-	}
-	private boolean pasDoublons(boolean tab[][],int x, int y) {
-		if(tab[x][y]==false) { // Si la case n'est pas visité
-			tab[x][y]=true;		//bah mtn si 
-			return true;
+	public boolean estOccupeParMoi(int x, int y) {
+		for(int i=0; i< this.getPieces().length;++i) {
+			if(x==this.getPiecea(i).getX() || y==this.getPiecea(i).getY())
+				return true;
 		}
 		return false;
 	}

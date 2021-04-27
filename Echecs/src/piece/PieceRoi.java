@@ -100,6 +100,16 @@ public class PieceRoi extends Piece {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	@Override
+	public boolean verificationMat(boolean[][] tab, Joueur quiApelle, Joueur j) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean peutSeMettreDev(boolean[][] tab, Joueur j) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 
 

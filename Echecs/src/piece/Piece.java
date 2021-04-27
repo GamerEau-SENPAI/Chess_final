@@ -38,6 +38,7 @@ public abstract class Piece {
 		}
 		return this.x;
 	}
+	public abstract boolean verificationMat(boolean[][] tab, Joueur quiApelle, Joueur j);
 	public abstract boolean estRoi();
 	public boolean getCol() {
 		return this.couleur;
@@ -48,8 +49,10 @@ public abstract class Piece {
 		}
 		return this.y;
 	}
+	public abstract boolean peutSeMettreDev(boolean tab[][], Joueur j);
 	public abstract String toString();
 	
 	
 	public abstract boolean recontrepiece(int x, int y, Joueur j);
+
 }
