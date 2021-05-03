@@ -101,27 +101,53 @@ public class PieceTour extends Piece {
 		int ButY = j.getPiecea(Indexroi).getY();
 		int MonX = this.getX();
 		int MonY = this.getY();
+		int SurY = Math.abs(MonY-MonY);
+		int SurX = Math.abs(ButX-MonX);
 		if(MonX == ButX && MonY > ButY) {
-			for(int i=MonY;i>ButY;--i) {
-				System.out.println("TOUR 1 - Valeurs a tester pour X : " + MonX + " Y : " + i);
+			for(int i=1;i<SurY;++i) {
+				for(int k=0;k<j.getPieces().length;k++) {
+					if(k==Indexroi)
+						k++;
+					if(this.estPossible(MonX, MonY+i, j) && j.getPiecea(k).estPossible(MonX, MonY+i, j)) {
+						return false;
+					}
+				}
 			}
 		}
 		if(MonX == ButX && MonY < ButY) {
-			for(int i=MonY;i<ButY;++i) {
-				System.out.println("TOUR 2 - Valeurs a tester pour X : " + MonX + " Y : " + i);
+			for(int i=1;i<SurY;++i) {
+				for(int k=0;k<j.getPieces().length;k++) {
+					if(k==Indexroi)
+						k++;
+					if(this.estPossible(MonX, MonY-i, j) && j.getPiecea(k).estPossible(MonX, MonY-i, j)) {
+						return false;
+					}
+				}
 			}
 		}
 		if(MonX < ButX && MonY == ButY) {
-			for(int i=MonX;i<ButX;++i) {
-				System.out.println("TOUR 3 - Valeurs a tester pour X : " + i + " Y : " + MonY);
+			for(int i=1;i<SurX;++i) {
+				for(int k=0;k<j.getPieces().length;k++) {
+					if(k==Indexroi)
+						k++;
+					if(this.estPossible(MonX+i, MonY, j) && j.getPiecea(k).estPossible(MonX+i, MonY, j)) {
+						return false;
+					}
+				}
 			}
 		}
 		if(MonX > ButX && MonY == ButY) {
-			for(int i=MonX;i>ButX;--i) {
-				System.out.println("TOUR 4 -Valeurs a tester pour X : " + i + " Y : " + MonY);
+			for(int i=1;i<SurX;++i) {
+				for(int k=0;k<j.getPieces().length;k++) {
+					if(k==Indexroi)
+						k++;
+					if(this.estPossible(MonX-i, MonY, j) && j.getPiecea(k).estPossible(MonX-i, MonY, j)) {
+						return false;
+					}
+				}
 			}
 		}
-		return false;
+		return true;
 		
 	}
 	public boolean peutSeMettreDev(boolean tab[][], Joueur j) {
