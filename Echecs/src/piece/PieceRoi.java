@@ -8,6 +8,10 @@ public class PieceRoi extends Piece {
 	public PieceRoi(Plateau p, int x, int y, boolean couleur) {
 		super(p, x, y, couleur);
 	}
+	public boolean ACheminLibre(Joueur j, int Indexroi) {
+		return true;
+		
+	}
 	public boolean estPossible(int x, int y, Joueur j) {
 		if(x<9 && x>0 && y<9 && y>0 ) {
 			if(x==super.getX()+1 && y==super.getY())

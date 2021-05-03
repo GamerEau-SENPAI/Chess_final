@@ -70,8 +70,15 @@ public class JoueurHumain extends Joueur {
 		return false;
 		
 	}
-	public boolean EstEchecEtMat(Joueur j) {
-		int verif=0;
+	public boolean EstMat(Joueur j) {
+		int Viseur = this.IndexRoiEstVisé(j);
+		int Roi= super.chercheRoi(this);
+		if(this.roiEstVisé(j) && this.getPiecea(Viseur).ACheminLibre(j, Roi))
+			return true;
+		return false;
+	}
+	public boolean EstEchec(Joueur j) {
+		//int verif=0;
 		int Roi= super.chercheRoi(j);
 		int coincidence=0;
 		for(int x=0;x<8;++x){
@@ -79,18 +86,14 @@ public class JoueurHumain extends Joueur {
 				for(int i=0; i<super.getPieces().length;i++) {
 						if(super.getPiecea(i).estPossible(x, y, j) && j.getPiecea(Roi).estPossible(x, y,this) ) {
 							if(this.pasDoublons(x, y) && !this.peutMeManger(j)) {
-								if(this.roiEstVisé(j) && this.DoitBougerSonRoi())
-									System.out.println("Une pièce vise le roi");
-								
 								coincidence++;
-								
 							}
 								
 						}
 				}
 			}
 		}
-		for(int i=0;i<super.getPieces().length;++i) {
+		/*for(int i=0;i<super.getPieces().length;++i) {
 			if(super.getPiecea(i).verificationMat(super.getTab(), this, j)) {
 				verif++;
 			}
@@ -98,7 +101,7 @@ public class JoueurHumain extends Joueur {
 			if(super.getPiecea(i).peutSeMettreDev(super.getTab(), j)) {
 				System.out.println("Une pièce peut se mettre devant");
 			}
-		}
+		}*/
 		
 		//System.out.println("Verification " + verif);
 		//System.out.println("coin " + coincidence);
@@ -107,9 +110,6 @@ public class JoueurHumain extends Joueur {
 		}
 	return false;
 		
-	}
-	private boolean DoitBougerSonRoi() {
-		return true;
 	}
 	private boolean pasDoublons(int x, int y) {
 		if(super.getTab(x, y)==false) { // Si la case n'est pas visité
@@ -126,5 +126,14 @@ public class JoueurHumain extends Joueur {
 		}
 		return false;
 	}
+	private int IndexRoiEstVisé(Joueur j) {
+		for(int i=0;i<super.getPieces().length;++i) { // Pour toute mes pièces
+			if(super.getPiecea(i).estPossible(j.getPiecea(chercheRoi(j)).getX(), j.getPiecea(chercheRoi(j)).getY(), j )) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
 	
 }

@@ -16,7 +16,13 @@ public class JoueurMachine extends Joueur {
 	}
 
 	@Override
-	public boolean EstEchecEtMat(Joueur j) {
+	public boolean EstEchec(Joueur j) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean EstMat(Joueur j) {
 		// TODO Auto-generated method stub
 		return false;
 	}

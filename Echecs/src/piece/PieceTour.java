@@ -96,62 +96,96 @@ public class PieceTour extends Piece {
 			return "   ";
 	}
 	
-	
+	public boolean ACheminLibre(Joueur j, int Indexroi) {
+		int ButX = j.getPiecea(Indexroi).getX();
+		int ButY = j.getPiecea(Indexroi).getY();
+		int MonX = this.getX();
+		int MonY = this.getY();
+		if(MonX == ButX && MonY > ButY) {
+			for(int i=MonY;i>ButY;--i) {
+				System.out.println("TOUR 1 - Valeurs a tester pour X : " + MonX + " Y : " + i);
+			}
+		}
+		if(MonX == ButX && MonY < ButY) {
+			for(int i=MonY;i<ButY;++i) {
+				System.out.println("TOUR 2 - Valeurs a tester pour X : " + MonX + " Y : " + i);
+			}
+		}
+		if(MonX < ButX && MonY == ButY) {
+			for(int i=MonX;i<ButX;++i) {
+				System.out.println("TOUR 3 - Valeurs a tester pour X : " + i + " Y : " + MonY);
+			}
+		}
+		if(MonX > ButX && MonY == ButY) {
+			for(int i=MonX;i>ButX;--i) {
+				System.out.println("TOUR 4 -Valeurs a tester pour X : " + i + " Y : " + MonY);
+			}
+		}
+		return false;
+		
+	}
 	public boolean peutSeMettreDev(boolean tab[][], Joueur j) {
-		System.out.println("Verification d'une tour");
-		int x=0;
-		int y=0;
+		//System.out.println("Verification d'une tour");
 		int x1 = super.getX();
 		int y1=super.getY();
 		for(int i=0;i<tab.length;++i) {
 			for(int k=0;k<tab[0].length;++k) {
 				if(tab[i][k]==true) {
-					System.out.println("Pour x : " + i + " Pour y : " + k);
-					System.out.println("resultat du 1er if :" + (x1==i) + " " + (y1<k));
+					//System.out.println("		Pour x : " + i + " Pour y : " + k);
+					//System.out.println("resultat du 1er if :");
 					if( x1==i && y1<k) {
-						for(int a=0;a<y;++a) {
+						for(int a=y1;a<k;++a) {
+							//System.out.println(true);
 							for(int b=0;b<j.getPieces().length;++b) {
-								System.out.println("1- Pour this :" + this.estPossible(x1, y1+a, j) + " Pour j" + j.getPiecea(i).estPossible(x1, y1+a, j));
-								if(this.estPossible(x1, y1+a, j) && j.getPiecea(i).estPossible(x1, y1+a, j) ) {
-									System.out.println(true);
+								//System.out.print("X1 et Y1 : ");
+								//System.out.println(x1 + " " + a);
+								if(this.estPossible(x1, a, j) && j.getPiecea(b).estPossible(x1, a, j)) {
+									//System.out.println(true);
 									return true;
+									
 								}
 							}
 						}
 					}
-					System.out.println("resultat du 2eme if :" + (x1==i) + " " + (y1>k));
+					//System.out.println("resultat du 2eme if :");
 					if(x1==i && y1>k) {
-						for(int a=0;a<y;++a) {
+						for(int a=y1;a<k;++a) {
+							//System.out.println(true);
 							for(int b=0;b<j.getPieces().length;++b) {
-								System.out.println("2-Pour this :" + this.estPossible(x1, y1+a, j) + " Pour j" + j.getPiecea(i).estPossible(x1, y1+a, j));
-								if(this.estPossible(x1, y1-a, j) && j.getPiecea(i).estPossible(x1, y1-a, j) ) {
-									System.out.println(true);
+								//System.out.print("X1 et Y1 : ");
+								//System.out.println(x1 + " "+ a);
+								if(this.estPossible(x1, a, j) && j.getPiecea(b).estPossible(x1, a, j) ) {
+									//System.out.println(true);
 									return true;
 									
 								}
 							}
 						}
 					}
-					System.out.println("resultat du 3eme if :"+ (x1<i) + " " + (y1==k));
+					//System.out.println("resultat du 3eme if :");
 					if(x1<i && y1==k) {
-						for(int a=0;a<y;++a) {
+						for(int a=x1;a<i;++a) {
+							//System.out.println(true);
 							for(int b=0;b<j.getPieces().length;++b) {
-								System.out.println("3-Pour this :" + this.estPossible(x1, y1+a, j) + " Pour j" + j.getPiecea(i).estPossible(x1, y1+a, j));
-								if(this.estPossible(x1+a, y1, j) && j.getPiecea(i).estPossible(x1+a, y1, j) ) {
-									System.out.println(true);
+								//System.out.print("X1 et Y1 : ");
+								//System.out.println(a + " " + y1);
+								if(this.estPossible(a, y1, j) && j.getPiecea(b).estPossible(a, y1, j) ) {
+									//System.out.println(true);
 									return true;
 									
 								}
 							}
 						}
 					}
-					System.out.println("resultat du 4eme if :" + (y1==i) + " " + (x1>k));
+					//System.out.println("resultat du 4eme if :");
 					if(x1>i && y1==k) {
-						for(int a=0;a<y;++a) {
+						//System.out.println(true);
+						for(int a=x1;a>i;--a) {
 							for(int b=0;b<j.getPieces().length;++b) {
-								System.out.println("4-Pour this :" + this.estPossible(x1, y1+a, j) + " Pour j" + j.getPiecea(i).estPossible(x1, y1+a, j));
-								if(this.estPossible(x1-a, y1, j) && j.getPiecea(i).estPossible(x1-a, y1, j) ) {
-									System.out.println(true);
+								//System.out.print("X1 et Y1 : ");
+								//System.out.println(a + " " + y1);
+								if(this.estPossible(a, y1, j) && j.getPiecea(b).estPossible(a, y1, j) ) {
+									//System.out.println(true);
 									return true;
 								}
 							}
@@ -161,7 +195,7 @@ public class PieceTour extends Piece {
 				}
 			}
 		}
-		System.out.println(false);
+		//System.out.println(false);
 		return false;
 		
 	}

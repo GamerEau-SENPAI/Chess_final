@@ -39,15 +39,15 @@ public class Application {
 		return entree;
 	}
 	private static void HumainVShumain() {
-		j1 = new JoueurHumain(4, true);
+		j1 = new JoueurHumain(3, true);
 		j2 = new JoueurHumain(5, true);
 	}
 	private static void HumainVSMachine() {
-		j1 = new JoueurHumain(4, true);
+		j1 = new JoueurHumain(3, true);
 		j2 = new JoueurMachine(5, true);
 	}
 	private static void MachineVSMachine() {
-		j1 = new JoueurMachine(4, true);
+		j1 = new JoueurMachine(3, true);
 		j2 = new JoueurMachine(5, true);
 	}
 	public static void main(String[] args) {
@@ -64,7 +64,7 @@ public class Application {
 		
 		
 		j1.ajoutRoi(plat, 2, 4, false);
-		j1.ajoutFou(plat, 7, 4, false);
+		//j1.ajoutFou(plat, 8, 8, false);
 		j1.ajoutFou(plat, 8, 4, false);
 		/*j1.ajoutTour(plat, 8, 7, false);*/
 		j1.ajoutTour(plat, 8, 2, false);
@@ -79,15 +79,16 @@ public class Application {
 				 System.out.println("C'est aux petites lettres");
 				 System.out.print(plat);
 				j1.jouer(plat,j2);
-				if(j1.EstEchecEtMat(j2) || j2.EstEchecEtMat(j1)) {
-					System.out.println("Echec !");
+				if((j1.EstEchec(j2) && j1.EstMat(j2))|| (j2.EstEchec(j1)) && j2.EstMat(j1)) {
+					System.out.println("Echec et mat !");
 				}
 			}while(j1.EstTour());
+			 
 			do{
 				System.out.println("C'est aux grandes lettres");
 				System.out.print(plat);
 				j2.jouer(plat, j1);
-				if(j1.EstEchecEtMat(j2) || j2.EstEchecEtMat(j1)) {
+				if((j1.EstEchec(j2) && j1.EstMat(j2))|| (j2.EstEchec(j1)) && j2.EstMat(j1)) {
 					System.out.println("Echec !");
 				};
 			}while(j2.EstTour());

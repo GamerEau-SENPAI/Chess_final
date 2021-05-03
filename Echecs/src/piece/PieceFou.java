@@ -5,7 +5,61 @@ import plateau.Plateau;
 
 public class PieceFou extends Piece {
 
-	
+	public boolean ACheminLibre(Joueur j, int Indexroi) {
+		int ButX = j.getPiecea(Indexroi).getX();
+		int ButY = j.getPiecea(Indexroi).getY();
+		int MonX = this.getX();
+		int MonY = this.getY();
+		int test = ButY-MonY;
+
+		test = Math.abs(test);
+		if(MonX>ButX && MonY>ButY){
+			for(int i=1;i<test;i++) {
+				for(int k=0;k<j.getPieces().length;k++) {
+					if(k==Indexroi)
+						k++;
+					if(this.estPossible(MonX-i, MonY-i, j) && j.getPiecea(k).estPossible(MonX-i, MonY-i, j)) {
+						return false;
+					}
+				}
+				
+			}
+		}
+		if(MonX< ButX && MonY >ButY) {
+			for(int i=0;i<test;++i) {
+				for(int k=0;k<j.getPieces().length;k++) {
+					if(k==Indexroi)
+						k++;
+					if(this.estPossible(MonX+i, MonY-i, j) && j.getPiecea(k).estPossible(MonX+i, MonY-i, j)) {
+						return false;
+					}
+				}
+			}
+		}if(MonY < ButY && MonX > ButX ) {
+			for(int i=0;i<test;++i) {
+				for(int k=0;k<j.getPieces().length;k++) {
+					if(k==Indexroi)
+						k++;
+					if(this.estPossible(MonX-i, MonY+i, j) && j.getPiecea(k).estPossible(MonX-i, MonY+i, j)) {
+						return false;
+					}
+				}
+			}
+			
+		}if(MonY < ButY && MonX < ButX) {
+			for(int i=0;i<test;++i) {
+				for(int k=0;k<j.getPieces().length;k++) {
+					if(k==Indexroi)
+						k++;
+					if(this.estPossible(MonX+i, MonY+i, j) && j.getPiecea(k).estPossible(MonX+i, MonY+i, j)) {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+		
+	}
 	public PieceFou(Plateau p, int x, int y, boolean couleur) {
 		super(p, x, y, couleur);
 	}

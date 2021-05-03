@@ -49,6 +49,7 @@ public abstract class Piece {
 		}
 		return this.y;
 	}
+	public abstract boolean ACheminLibre(Joueur j, int Indexroi);
 	public abstract boolean peutSeMettreDev(boolean tab[][], Joueur j);
 	public abstract String toString();
 	

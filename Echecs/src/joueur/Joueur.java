@@ -94,7 +94,8 @@ public abstract class Joueur {
 	
 	public abstract void jouer(Plateau plat, Joueur j);
 	
-	public abstract boolean EstEchecEtMat(Joueur j);
+	public abstract boolean EstEchec(Joueur j);
+	public abstract boolean EstMat(Joueur j);
 	
 	protected static int chercheRoi(Joueur j) {
 		for(int i=0; i<j.getPieces().length;++i) {
