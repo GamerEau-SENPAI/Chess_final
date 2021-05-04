@@ -15,12 +15,7 @@ public class JoueurHumain extends Joueur {
 		super(qte, monTour);
 	}
 	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	public void jouer(Plateau plat, Joueur j) {

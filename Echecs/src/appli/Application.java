@@ -39,14 +39,20 @@ public class Application {
 		return entree;
 	}
 	private static void HumainVShumain() {
+		j1=null;
+		j2=null;
 		j1 = new JoueurHumain(5, true);
 		j2 = new JoueurHumain(5, true);
 	}
 	private static void HumainVSMachine() {
+		j1=null;
+		j2=null;
 		j1 = new JoueurHumain(5, true);
 		j2 = new JoueurMachine(5, true);
 	}
 	private static void MachineVSMachine() {
+		j1=null;
+		j2=null;
 		j1 = new JoueurMachine(5, true);
 		j2 = new JoueurMachine(5, true);
 	}
@@ -63,7 +69,7 @@ public class Application {
 			}else {
 				mode = Demande();
 				System.out.print(mode);
-				
+				gag=false;
 			}
 		
 		
@@ -75,7 +81,7 @@ public class Application {
 			MachineVSMachine();
 		
 		
-		
+		plat.clsTotal();
 		j1.ajoutRoi(plat, 2, 4, false);
 		j1.ajoutFou(plat, 8, 8, false);
 		j1.ajoutFou(plat, 8, 8, false);
