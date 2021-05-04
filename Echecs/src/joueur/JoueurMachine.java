@@ -29,11 +29,12 @@ public class JoueurMachine extends Joueur {
 		if(!dejajoue) {
 			jouerAleatoirement(plat,j);
 		}
-		
+		}
         	try {
         		  Thread.sleep(500);
         		} catch (InterruptedException e) {e.printStackTrace();}
-		}
+        //dejajoue=false;
+		
   }
 	
 	
@@ -103,27 +104,35 @@ public class JoueurMachine extends Joueur {
 		for(int i=0;i<j.getPieces().length;++i) {
 			if(j.getPiecea(i).estPossible(super.getPiecea(roi).getX()+1, super.getPiecea(roi).getY(), this)) {
 				this.jouerAutrePart(super.getPiecea(roi).getX()+1, super.getPiecea(roi).getY(), j, plat);
+				break;
 			}
 			if(j.getPiecea(i).estPossible(super.getPiecea(roi).getX(), super.getPiecea(roi).getY()+1, this)) {
 				this.jouerAutrePart(super.getPiecea(roi).getX(), super.getPiecea(roi).getY()+1, j, plat);
+				break;
 			}
 			if(j.getPiecea(i).estPossible(super.getPiecea(roi).getX()-1, super.getPiecea(roi).getY(), this)) {
 				this.jouerAutrePart(super.getPiecea(roi).getX()-1, super.getPiecea(roi).getY(), j, plat);
+				break;
 			}
 			if(j.getPiecea(i).estPossible(super.getPiecea(roi).getX(), super.getPiecea(roi).getY()-1, this)) {
 				this.jouerAutrePart(super.getPiecea(roi).getX(), super.getPiecea(roi).getY()-1, j, plat);
+				break;
 			}
 			if(j.getPiecea(i).estPossible(super.getPiecea(roi).getX()+1, super.getPiecea(roi).getY()+1, this)) {
 				this.jouerAutrePart(super.getPiecea(roi).getX()+1, super.getPiecea(roi).getY()+1, j, plat);
+				break;
 			}
 			if(j.getPiecea(i).estPossible(super.getPiecea(roi).getX()-1, super.getPiecea(roi).getY()+1, this)) {
 				this.jouerAutrePart(super.getPiecea(roi).getX()-1, super.getPiecea(roi).getY()+1, j, plat);
+				break;
 			}
 			if(j.getPiecea(i).estPossible(super.getPiecea(roi).getX()-1, super.getPiecea(roi).getY()-1, this)) {
 				this.jouerAutrePart(super.getPiecea(roi).getX()-1, super.getPiecea(roi).getY()-1, j, plat);
+				break;
 			}
 			if(j.getPiecea(i).estPossible(super.getPiecea(roi).getX()+1, super.getPiecea(roi).getY()-1, this)) {
 				this.jouerAutrePart(super.getPiecea(roi).getX()+1, super.getPiecea(roi).getY()-1, j, plat);
+				break;
 			}
 		}
 	}
