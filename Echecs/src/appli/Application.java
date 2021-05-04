@@ -82,7 +82,7 @@ public class Application {
 		
 		
 		plat.clsTotal();
-		j1.ajoutRoi(plat, 2, 4, false);
+		j1.ajoutRoi(plat, 1, 3, false);
 		j1.ajoutFou(plat, 8, 8, false);
 		j1.ajoutFou(plat, 8, 8, false);
 		j1.ajoutTour(plat, 8, 7, false);
