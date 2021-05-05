@@ -12,11 +12,13 @@ public abstract class Joueur {
 	private int cpt;
 	private boolean monTour;
 	private boolean tab[][];
+	private boolean gagant;
 	public Joueur(int qte, boolean monTour) {
 		this.pieces= new Piece[qte];
 		this.nbrpos = new int[qte];
 		this.cpt=0;
 		this.monTour=monTour;
+		this.gagant=false;
 		tab = new boolean[8][8];
 		for(int i=0;i<8;++i) {
 			for(int k=0;k<8;++k) {
@@ -99,13 +101,19 @@ public abstract class Joueur {
 		}
 		return -1;
 	}
-	
+	public void setGagnant(boolean etat) {
+		this.gagant = etat;
+	}
+	public boolean getGagnant() {
+		return this.gagant;
+	}
 	public abstract void jouer(Plateau plat, Joueur j);
 	public boolean roiEstEnVie() {
 		int roi = chercheRoi(this);
 		if(this.getPiecea(roi).EstVivante()) {
 			return true;
 		}
+		this.setGagnant(true);
 		return false;
 	}
 	public boolean EstMat(Joueur j) {

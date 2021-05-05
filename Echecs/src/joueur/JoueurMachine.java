@@ -5,8 +5,7 @@ import java.util.Random;
 import plateau.Plateau;
 
 public class JoueurMachine extends Joueur {
-	private boolean reussi=false;
-	private boolean reussi2=false;
+	private boolean reussi=true;
 	private boolean dejajoue=false;
 	public JoueurMachine(int qte, boolean monTour) {
 		super(qte, monTour);
@@ -14,19 +13,24 @@ public class JoueurMachine extends Joueur {
 
 	@Override
 	public void jouer(Plateau plat, Joueur j) {
+		
 		if(roiEstEnDanger(j)) {
-			this.jouerEvasion(plat, j);
+			System.out.println("Roi est en danger est appelé");
+			jouerEvasion(plat, j);
 			
 		}else {
 			
 		
 		int roi = chercheRoi(j);
 		for(int a=0;a<super.getPieces().length;++a) {
-			if(super.getPiecea(a).estPossible(j.getPiecea(roi).getX(), j.getPiecea(roi).getY(), j)) {
+			if(unePieceViseRoi(a,j)) {
+				System.out.println("Jouer pour le roi est appelé : ");
 				JouerPourLeRoi(roi,plat,j,a);
 			}
 		}
+
 		if(!dejajoue) {
+			System.out.println("Jouer pour Aleatoirement est appelé : ");
 			jouerAleatoirement(plat,j);
 		}
 		}
@@ -34,6 +38,7 @@ public class JoueurMachine extends Joueur {
         		  Thread.sleep(500);
         		} catch (InterruptedException e) {e.printStackTrace();}
         //dejajoue=false;
+        	reussi=true;
 		
   }
 	
@@ -42,7 +47,10 @@ public class JoueurMachine extends Joueur {
 	
 	
 	
-	
+	private boolean unePieceViseRoi(int a,Joueur j) {
+		int roi = chercheRoi(j);
+		return super.getPiecea(a).estPossible(j.getPiecea(roi).getX(), j.getPiecea(roi).getY(), j);
+	}
 	private void JouerPourLeRoi(int roi, Plateau plat, Joueur j, int a) {
 		System.out.println("2-La pièce" + super.getPiecea(a).toString() + " a bougé en X : " + j.getPiecea(roi).getX() + " Et Y : " + j.getPiecea(roi).getY());
 		int x = j.getPiecea(roi).getX();
@@ -53,7 +61,7 @@ public class JoueurMachine extends Joueur {
 		super.EtreMangé(x,y, j);
 		super.getPiecea(a).setXY(x, y);
 		plat.setTab(super.getPiecea(a));
-		reussi=true;
+		reussi=false;
 		if(j.RestePiece()) {
 			super.setTour(false);
 		}else {
@@ -71,24 +79,23 @@ public class JoueurMachine extends Joueur {
         	do {
             	int x = rand.nextInt(8);
                 int y = rand.nextInt(8);
-    		if(super.getPiecea(i).estPossible(x,y,j)) {
-    			System.out.println("1-La pièce" + super.getPiecea(i).toString() + " a bougé en X : " + x + " Et Y : " + y);
-    			
-    			plat.cls(super.getPiecea(i).getX(),super.getPiecea(i).getY());
-    			super.EtreMangé(x,y, j);
-    			super.getPiecea(i).setXY(x, y);
-    			plat.setTab(super.getPiecea(i));
-    			reussi=true;
-    			if(j.RestePiece()) {
-    				super.setTour(false);
-    			}else {
-    				super.setTour(true);
-    				}
-    			
-    		}
-            }while(!reussi);
+	    		if(super.getPiecea(i).estPossible(x,y,j)){
+	    			System.out.println("1-La pièce" + super.getPiecea(i).toString() + " a bougé en X : " + x + " Et Y : " + y);
+	    			plat.cls(super.getPiecea(i).getX(),super.getPiecea(i).getY());
+	    			super.EtreMangé(x,y, j);
+	    			super.getPiecea(i).setXY(x, y);
+	    			plat.setTab(super.getPiecea(i));
+	    			reussi=false;
+
+	    			if(j.RestePiece()) {
+	    				super.setTour(false);
+	    			}else {
+	    				super.setTour(true);
+	    				}
+	    			
+	    		}
+            }while(reussi);
 	}
-	@SuppressWarnings("unused")
 	private boolean roiEstEnDanger(Joueur j) {
 		int roi = chercheRoi(this);
 		for(int i=0;i<j.getPieces().length;++i) {
@@ -100,37 +107,38 @@ public class JoueurMachine extends Joueur {
 		
 	}
 	private void jouerEvasion(Plateau plat, Joueur j) {
+		System.out.println("JouerEvasion()");
 		int roi = chercheRoi(this);
 		for(int i=0;i<j.getPieces().length;++i) {
-			if(j.getPiecea(i).estPossible(super.getPiecea(roi).getX()+1, super.getPiecea(roi).getY(), this)) {
+			if(!j.getPiecea(i).estPossible(super.getPiecea(roi).getX()+1, super.getPiecea(roi).getY(), this)) {
 				this.jouerAutrePart(super.getPiecea(roi).getX()+1, super.getPiecea(roi).getY(), j, plat);
 				break;
 			}
-			if(j.getPiecea(i).estPossible(super.getPiecea(roi).getX(), super.getPiecea(roi).getY()+1, this)) {
+			if(!j.getPiecea(i).estPossible(super.getPiecea(roi).getX(), super.getPiecea(roi).getY()+1, this)) {
 				this.jouerAutrePart(super.getPiecea(roi).getX(), super.getPiecea(roi).getY()+1, j, plat);
 				break;
 			}
-			if(j.getPiecea(i).estPossible(super.getPiecea(roi).getX()-1, super.getPiecea(roi).getY(), this)) {
+			if(!j.getPiecea(i).estPossible(super.getPiecea(roi).getX()-1, super.getPiecea(roi).getY(), this)) {
 				this.jouerAutrePart(super.getPiecea(roi).getX()-1, super.getPiecea(roi).getY(), j, plat);
 				break;
 			}
-			if(j.getPiecea(i).estPossible(super.getPiecea(roi).getX(), super.getPiecea(roi).getY()-1, this)) {
+			if(!j.getPiecea(i).estPossible(super.getPiecea(roi).getX(), super.getPiecea(roi).getY()-1, this)) {
 				this.jouerAutrePart(super.getPiecea(roi).getX(), super.getPiecea(roi).getY()-1, j, plat);
 				break;
 			}
-			if(j.getPiecea(i).estPossible(super.getPiecea(roi).getX()+1, super.getPiecea(roi).getY()+1, this)) {
+			if(!j.getPiecea(i).estPossible(super.getPiecea(roi).getX()+1, super.getPiecea(roi).getY()+1, this)) {
 				this.jouerAutrePart(super.getPiecea(roi).getX()+1, super.getPiecea(roi).getY()+1, j, plat);
 				break;
 			}
-			if(j.getPiecea(i).estPossible(super.getPiecea(roi).getX()-1, super.getPiecea(roi).getY()+1, this)) {
+			if(!j.getPiecea(i).estPossible(super.getPiecea(roi).getX()-1, super.getPiecea(roi).getY()+1, this)) {
 				this.jouerAutrePart(super.getPiecea(roi).getX()-1, super.getPiecea(roi).getY()+1, j, plat);
 				break;
 			}
-			if(j.getPiecea(i).estPossible(super.getPiecea(roi).getX()-1, super.getPiecea(roi).getY()-1, this)) {
+			if(!j.getPiecea(i).estPossible(super.getPiecea(roi).getX()-1, super.getPiecea(roi).getY()-1, this)) {
 				this.jouerAutrePart(super.getPiecea(roi).getX()-1, super.getPiecea(roi).getY()-1, j, plat);
 				break;
 			}
-			if(j.getPiecea(i).estPossible(super.getPiecea(roi).getX()+1, super.getPiecea(roi).getY()-1, this)) {
+			if(!j.getPiecea(i).estPossible(super.getPiecea(roi).getX()+1, super.getPiecea(roi).getY()-1, this)) {
 				this.jouerAutrePart(super.getPiecea(roi).getX()+1, super.getPiecea(roi).getY()-1, j, plat);
 				break;
 			}
@@ -152,7 +160,7 @@ public class JoueurMachine extends Joueur {
 					super.EtreMangé(x1,y1, j);
 					super.getPiecea(roi).setXY(x1, y1);
 					plat.setTab(super.getPiecea(roi));
-					reussi=true;
+					reussi=false;
 					if(j.RestePiece()) {
 						super.setTour(false);
 					}else {
@@ -160,7 +168,7 @@ public class JoueurMachine extends Joueur {
 						}
 					
 				}
-			}while(!reussi);
+			}while(reussi);
         }
 	}
         	

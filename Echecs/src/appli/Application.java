@@ -70,6 +70,7 @@ public class Application {
 				mode = Demande();
 				System.out.print(mode);
 				gag=false;
+				finis= false;
 			}
 		
 		
@@ -82,26 +83,25 @@ public class Application {
 		
 		
 		plat.clsTotal();
-		j1.ajoutRoi(plat, 1, 3, false);
-		j1.ajoutFou(plat, 8, 8, false);
-		j1.ajoutFou(plat, 8, 8, false);
-		j1.ajoutTour(plat, 8, 7, false);
-		j1.ajoutTour(plat, 8, 2, false);
-		j2.ajoutRoi(plat, 3, 6, true);
-		j2.ajoutFou(plat, 7, 6, true);
-		j2.ajoutFou(plat, 5, 1, true);
-		j2.ajoutTour(plat, 2, 1, true);
-		j2.ajoutTour(plat, 7, 4, true);
+		j1.ajoutRoi(plat, 1, 2, true);
+		j1.ajoutFou(plat, 6, 7, true);
+		j1.ajoutFou(plat, 8, 5, true);
+		j1.ajoutTour(plat, 4, 5, true);
+		j1.ajoutTour(plat, 3, 5, true);
+		j2.ajoutRoi(plat, 1, 4, false);
+		j2.ajoutFou(plat, 7, 6, false);
+		j2.ajoutFou(plat, 5, 1, false);
+		j2.ajoutTour(plat, 8, 8, false);
+		j2.ajoutTour(plat, 8, 6, false);
 		
 		
 		do {
 			 do{
 				 if(!gag) {
-					 System.out.println("C'est aux petites lettres");
+					 System.out.println("C'est aux grandes lettres(BLANC)");
 					 System.out.print(plat);
 					j1.jouer(plat,j2);
-					if((j1.EstEchec(j2) && j1.EstMat(j2))|| (j2.EstEchec(j1)) && j2.EstMat(j1)|| (!j1.roiEstEnVie()||!j2.roiEstEnVie())) {
-						System.out.println("Grandes lettres ont gagnées");
+					if((j1.EstEchec(j2) && j1.EstMat(j2))|| (j2.EstEchec(j1) && j2.EstMat(j1))|| (!j1.roiEstEnVie()||!j2.roiEstEnVie())) {
 						gag=true;
 					}
 				}
@@ -109,21 +109,26 @@ public class Application {
 			 
 			do{
 				if(!gag) {
-					System.out.println("C'est aux grandes lettres");
+					System.out.println("C'est aux petites lettres(NOIR)");
 					System.out.print(plat);
 					j2.jouer(plat, j1);
-					if((j1.EstEchec(j2) && j1.EstMat(j2))|| (j2.EstEchec(j1)) && j2.EstMat(j1) || (!j1.roiEstEnVie()||!j2.roiEstEnVie())) {
-						System.out.println("Petites lettres ont gaganés");
+					if((j1.EstEchec(j2) && j1.EstMat(j2))|| (j2.EstEchec(j1) && j2.EstMat(j1)) || (!j1.roiEstEnVie()||!j2.roiEstEnVie())) {
+						
 						gag=true;
 					};
 				}else {
 					j2.setTour(!gag);
 					finis=true;
 				}
-			}while(j2.EstTour());
-			System.out.println("The end");
-			
+			}while(j2.EstTour());			
 		}while(!finis);
+		System.out.println(plat);
+		if(j1.getGagnant()==true) {
+			System.out.println("Joueur des PETITES lettres a gagné");
+		}else if(j2.getGagnant()==true) {
+			System.out.println("Joueur des GRANDES lettres a gagné");
+		}
+
 	}while(true);
 	}
 }
