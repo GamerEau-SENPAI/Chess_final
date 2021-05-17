@@ -2,7 +2,10 @@ package joueur;
 
 import java.util.Random;
 
-import plateau.Plateau;
+import plateau.IPiece;
+
+
+
 
 public class JoueurMachine extends Joueur {
 	private boolean reussi=true;
@@ -10,12 +13,9 @@ public class JoueurMachine extends Joueur {
 	public JoueurMachine(int qte, boolean monTour) {
 		super(qte, monTour);
 	}
-
 	@Override
-	public void jouer(Plateau plat, Joueur j) {
-		
+	public void jouer(piece.IPlateau plat, Joueur j) {
 		if(roiEstEnDanger(j)) {
-			System.out.println("Roi est en danger est appelé");
 			jouerEvasion(plat, j);
 			
 		}else {
@@ -24,13 +24,11 @@ public class JoueurMachine extends Joueur {
 		int roi = chercheRoi(j);
 		for(int a=0;a<super.getPieces().length;++a) {
 			if(unePieceViseRoi(a,j)) {
-				System.out.println("Jouer pour le roi est appelé : ");
 				JouerPourLeRoi(roi,plat,j,a);
 			}
 		}
 
 		if(!dejajoue) {
-			System.out.println("Jouer pour Aleatoirement est appelé : ");
 			jouerAleatoirement(plat,j);
 		}
 		}
@@ -40,7 +38,9 @@ public class JoueurMachine extends Joueur {
         //dejajoue=false;
         	reussi=true;
 		
-  }
+		
+	}
+
 	
 	
 	
@@ -51,7 +51,7 @@ public class JoueurMachine extends Joueur {
 		int roi = chercheRoi(j);
 		return super.getPiecea(a).estPossible(j.getPiecea(roi).getX(), j.getPiecea(roi).getY(), j);
 	}
-	private void JouerPourLeRoi(int roi, Plateau plat, Joueur j, int a) {
+	private void JouerPourLeRoi(int roi, piece.IPlateau plat, Joueur j, int a) {
 		System.out.println("2-La pièce" + super.getPiecea(a).toString() + " a bougé en X : " + j.getPiecea(roi).getX() + " Et Y : " + j.getPiecea(roi).getY());
 		int x = j.getPiecea(roi).getX();
 		int y = j.getPiecea(roi).getY();
@@ -60,7 +60,7 @@ public class JoueurMachine extends Joueur {
 		dejajoue=true;
 		super.EtreMangé(x,y, j);
 		super.getPiecea(a).setXY(x, y);
-		plat.setTab(super.getPiecea(a));
+		plat.setTab((joueur.IPiece) super.getPiecea(a));
 		reussi=false;
 		if(j.RestePiece()) {
 			super.setTour(false);
@@ -69,7 +69,7 @@ public class JoueurMachine extends Joueur {
 			}
 	}
 	
-	private void jouerAleatoirement(Plateau plat, Joueur j) {
+	private void jouerAleatoirement(piece.IPlateau plat, Joueur j) {
 		Random rand = new Random();
         int i = rand.nextInt(super.getPieces().length);
         while (!super.getPiecea(i).EstVivante()) {
@@ -84,7 +84,7 @@ public class JoueurMachine extends Joueur {
 	    			plat.cls(super.getPiecea(i).getX(),super.getPiecea(i).getY());
 	    			super.EtreMangé(x,y, j);
 	    			super.getPiecea(i).setXY(x, y);
-	    			plat.setTab(super.getPiecea(i));
+	    			plat.setTab((joueur.IPiece) super.getPiecea(i));
 	    			reussi=false;
 
 	    			if(j.RestePiece()) {
@@ -106,7 +106,7 @@ public class JoueurMachine extends Joueur {
 		return false;
 		
 	}
-	private void jouerEvasion(Plateau plat, Joueur j) {
+	private void jouerEvasion(piece.IPlateau plat, Joueur j) {
 		System.out.println("JouerEvasion()");
 		int roi = chercheRoi(this);
 		for(int i=0;i<j.getPieces().length;++i) {
@@ -144,7 +144,7 @@ public class JoueurMachine extends Joueur {
 			}
 		}
 	}
-	private void jouerAutrePart(int x, int y, Joueur j, Plateau plat) {
+	private void jouerAutrePart(int x, int y, Joueur j, piece.IPlateau plat) {
 		Random rand = new Random();
 		int roi = chercheRoi(this);
 		int x1 = x;
@@ -159,7 +159,7 @@ public class JoueurMachine extends Joueur {
 					plat.cls(super.getPiecea(roi).getX(),super.getPiecea(roi).getY());
 					super.EtreMangé(x1,y1, j);
 					super.getPiecea(roi).setXY(x1, y1);
-					plat.setTab(super.getPiecea(roi));
+					plat.setTab((joueur.IPiece) super.getPiecea(roi));
 					reussi=false;
 					if(j.RestePiece()) {
 						super.setTour(false);
@@ -171,6 +171,10 @@ public class JoueurMachine extends Joueur {
 			}while(reussi);
         }
 	}
+
+
+
+
         	
 
         

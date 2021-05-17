@@ -2,11 +2,11 @@ package joueur;
 
 import java.util.Scanner;
 
-import piece.Piece;
-import piece.PieceFou;
-import piece.PieceRoi;
-import piece.PieceTour;
-import plateau.Plateau;
+import plateau.IPiece;
+
+
+
+
 
 public class JoueurHumain extends Joueur {
 	
@@ -16,9 +16,10 @@ public class JoueurHumain extends Joueur {
 	}
 	
 
-	
-	
-	public void jouer(Plateau plat, Joueur j) {
+
+
+	@Override
+	public void jouer(piece.IPlateau plat, Joueur j) {
 		Scanner saisie = new Scanner(System.in);
 		String entree = saisie.nextLine();
 		int a = super.index(entree,0);
@@ -29,7 +30,7 @@ public class JoueurHumain extends Joueur {
 					plat.cls(b,a);
 					super.EtreMangé(charToInt(entree,3), index(entree,2), j);
 					super.getPiecea(i).setXY(charToInt(entree,3),index(entree,2));
-					plat.setTab(super.getPiecea(i));
+					plat.setTab((joueur.IPiece)super.getPiecea(i));
 					if(j.RestePiece()) {
 						super.setTour(false);
 					}else {
@@ -43,14 +44,25 @@ public class JoueurHumain extends Joueur {
 					}
 			}
 		}	
+		
 	}
+
+
+
+
+
+
+
+
+
+
+
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 }

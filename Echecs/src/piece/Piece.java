@@ -1,59 +1,74 @@
 package piece;
 
-import joueur.Joueur;
-import plateau.Plateau;
+import joueur.IPiece;
 
-public abstract class Piece {
+public abstract class Piece implements IPiece {
 	private int x;
 	private int y;
 	private boolean vivante;
 	private boolean couleur;
-	private int premierPassage=0;
-	public Piece(Plateau p,int x, int y, boolean col) {
+	private int premierPassage;
+	public Piece(IPlateau p,int x, int y, boolean col) {
 		this.x=x;
 		this.y=y;
 		this.couleur=col;
 		this.vivante = true;
-		p.setTab(this);
+		this.premierPassage=0;
+		p.setTab((IPiece) this);
 		
 	}
+	@Override
 	public void setPassage(int i) {
 		premierPassage=i;
 	}
+	@Override
 	public boolean EstVivante() {
 		return this.vivante;
 	}
+	@Override
 	public void EteMange() {
 		this.vivante=false;
 	}
-	public abstract boolean estPossible(int x, int y, Joueur j);
+	@Override
+	public abstract boolean estPossible(int x, int y, IJoueur j);
+	@Override
 	public void setXY(int x, int y) {
 		this.x=x;
 		this.y=y;
 	}
+	@Override
 	public abstract int nbrPos(int x, int y);
+	@Override
 	public int getX() {
 		if(!this.EstVivante()) {
 			return 10;
 		}
 		return this.x;
 	}
-	public abstract boolean verificationMat(boolean[][] tab, Joueur quiApelle, Joueur j);
+	@Override
+	public abstract boolean verificationMat(boolean[][] tab, IJoueur quiApelle, IJoueur j);
+	@Override
 	public abstract boolean estRoi();
+	@Override
 	public boolean getCol() {
 		return this.couleur;
 	}
+	@Override
 	public int getY() {
 		if(!this.EstVivante()) {
 			return 10;
 		}
 		return this.y;
 	}
-	public abstract boolean ACheminLibre(Joueur j, int Indexroi);
-	public abstract boolean peutSeMettreDev(boolean tab[][], Joueur j);
+	@Override
+	public abstract boolean ACheminLibre(IJoueur j, int Indexroi);
+	@Override
+	public abstract boolean peutSeMettreDev(boolean tab[][], IJoueur j);
+	@Override
 	public abstract String toString();
 	
 	
-	public abstract boolean recontrepiece(int x, int y, Joueur j);
+	@Override
+	public abstract boolean recontrepiece(int x, int y, IJoueur j);
 
 }

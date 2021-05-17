@@ -1,24 +1,23 @@
 package joueur;
 
-import piece.Piece;
-import piece.PieceFou;
-import piece.PieceRoi;
-import piece.PieceTour;
-import plateau.Plateau;
 
-public abstract class Joueur {
-	private Piece[] pieces;
+import piece.IJoueur;
+
+
+
+public abstract class Joueur implements IJoueur {
+	private IPiece[] pieces;
 	private int[] nbrpos;
-	private int cpt;
 	private boolean monTour;
 	private boolean tab[][];
 	private boolean gagant;
+	private int cpt;
 	public Joueur(int qte, boolean monTour) {
-		this.pieces= new Piece[qte];
+		this.pieces= new IPiece[qte];
 		this.nbrpos = new int[qte];
-		this.cpt=0;
 		this.monTour=monTour;
 		this.gagant=false;
+		cpt=0;
 		tab = new boolean[8][8];
 		for(int i=0;i<8;++i) {
 			for(int k=0;k<8;++k) {
@@ -26,39 +25,58 @@ public abstract class Joueur {
 			}
 		}
 	}
+	
+	@Override
+	public int getCpt() {
+		return cpt;
+	}
+	
+	@Override
+	public void incCpt() {
+		if(this.cpt<5) {
+			this.cpt+=1;
+		}
+		
+	}
 	public boolean[][] getTab(){
 		return this.tab;
 	}
+	@Override
 	public boolean getTab(int x, int y){
 		return this.tab[x][y];
 	}
+	@Override
 	public void setTab(int x, int y,boolean etat){
 		this.tab[x][y] = etat;
 	}
-	public Piece getPiecea(int i) {
+	@Override
+	public IPiece getPiecea(int i) {
 		return pieces[i];
 	}
+	@Override
+	public void setPiece(int i, IPiece c) {
+		if(i>4) {
+			i=5;
+		}
+		pieces[i]=c;
+	}
+	@Override
 	public boolean EstTour() {
 		return this.monTour;
 	}
+	@Override
 	public void setTour(boolean tour) {
 		this.monTour = tour;
 	}
-	public void ajoutRoi(Plateau plat, int x, int y, boolean couleur) {
-		this.pieces[cpt]= new PieceRoi(plat,x,y,couleur);
-		cpt++;
-	}
-	public void ajoutTour(Plateau plat, int x, int y, boolean couleur) {
-		this.pieces[cpt]= new PieceTour(plat,x,y,couleur);
-		cpt++;
-	}
-	public void ajoutFou(Plateau plat, int x, int y, boolean couleur) {
-		this.pieces[cpt]= new PieceFou(plat,x,y,couleur);
-		cpt++;
-	}
-	public Piece[] getPieces() {
+	
+	@Override
+	public IPiece[] getPieces() {
 		return this.pieces;
 	}
+	
+	/**@brief :Créé un alphabet de 'a' jusqu'à 'h'
+	 * @return un char[]
+	 */
 	private static char[] CreationAlp() {
 		char[] alphabet = new char[10];
 		for(char ch = 'a'; ch <= 'h'; ++ch){
@@ -66,6 +84,9 @@ public abstract class Joueur {
         }
 		return alphabet;
 	}
+	/**@brief :Créé tableau allant de '8' à '1'
+	 * @return un char[]
+	 */
 	private static char[] CreationVal() {
 		char[] val = new char[9];
 		int cpt=1;
@@ -75,6 +96,12 @@ public abstract class Joueur {
 		}
 		return val;
 	}
+	
+	/**@brief : transforme une lettre de l'alphabet en valeur numérique
+	 * @param a [in]: la chaine a convertir en int
+	 * @param x [in]: l'indice de la case de la chaine a convertir
+	 * @return un int
+	 */
 	protected static int index(String a,int x) { // x=0 ou x=2
 		char[] alphabet = CreationAlp();
 		for(int i=0;i<10;++i) {
@@ -84,6 +111,12 @@ public abstract class Joueur {
 		}
 		return 0;
 	}
+	
+	/**@brief : transforme un numéro 'char' en valeur numérique
+	 * @param a [in] : la chaine a convertir en int
+	 * @param x [in] : l'indice de la case de la chaine a convertir
+	 * @return un int
+	 */
 	public static int charToInt(String a, int x) { // x=1 ou 3
 		char[] val = CreationVal();
 		for(int i=0;i<9;++i) {
@@ -93,7 +126,12 @@ public abstract class Joueur {
 		}
 		return 0;
 	}
-	private int IndexRoiEstVisé(Joueur j) {
+	
+	/**@brief : Cherche et donne l'index de MA pièce qui peut attaquer le roi
+	 * @param j [in] : Le joueur inverse
+	 * @return L'index de ce roi
+	 */
+	private int IndexRoiEstVisé(IJoueur j) {
 		for(int i=0;i<getPieces().length;++i) { // Pour toute mes pièces
 			if(getPiecea(i).estPossible(j.getPiecea(chercheRoi(j)).getX(), j.getPiecea(chercheRoi(j)).getY(), j )) {
 				return i;
@@ -101,13 +139,16 @@ public abstract class Joueur {
 		}
 		return -1;
 	}
+	@Override
 	public void setGagnant(boolean etat) {
 		this.gagant = etat;
 	}
+	@Override
 	public boolean getGagnant() {
 		return this.gagant;
 	}
-	public abstract void jouer(Plateau plat, Joueur j);
+	
+	@Override
 	public boolean roiEstEnVie() {
 		int roi = chercheRoi(this);
 		if(this.getPiecea(roi).EstVivante()) {
@@ -116,7 +157,8 @@ public abstract class Joueur {
 		this.setGagnant(true);
 		return false;
 	}
-	public boolean EstMat(Joueur j) {
+	@Override
+	public boolean EstMat(IJoueur j) {
 			int Viseur = IndexRoiEstVisé(j);
 			int Roi= chercheRoi(this);
 			if(this.roiEstVisé(j) && this.getPiecea(Viseur).ACheminLibre(j, Roi))
@@ -124,7 +166,7 @@ public abstract class Joueur {
 		
 		return false;
 	}
-	private boolean roiEstVisé(Joueur j) {
+	private boolean roiEstVisé(IJoueur j) {
 		for(int i=0;i<getPieces().length;++i) { // Pour toute mes pièces
 			if(getPiecea(i).estPossible(j.getPiecea(chercheRoi(j)).getX(), j.getPiecea(chercheRoi(j)).getY(), j )) {
 				return true;
@@ -139,7 +181,7 @@ public abstract class Joueur {
 		}
 		return false;
 	}
-	private boolean peutMeManger(Joueur j) {
+	private boolean peutMeManger(IJoueur j) {
 		for(int i=0;i<j.getPieces().length;++i) {
 			for(int k=0;k<getPieces().length;++k) {
 				if(j.getPiecea(i).estPossible(getPiecea(k).getX(), getPiecea(k).getY(), this)) {
@@ -150,7 +192,8 @@ public abstract class Joueur {
 		return false;
 		
 	}
-	public boolean EstEchec(Joueur j) {
+	@Override
+	public boolean EstEchec(IJoueur j) {
 		//int verif=0;
 		int Roi= chercheRoi(j);
 		int coincidence=0;
@@ -166,25 +209,14 @@ public abstract class Joueur {
 				}
 			}
 		}
-		/*for(int i=0;i<super.getPieces().length;++i) {
-			if(super.getPiecea(i).verificationMat(super.getTab(), this, j)) {
-				verif++;
-			}
-			
-			if(super.getPiecea(i).peutSeMettreDev(super.getTab(), j)) {
-				System.out.println("Une pièce peut se mettre devant");
-			}
-		}*/
-		
-		//System.out.println("Verification " + verif);
-		//System.out.println("coin " + coincidence);
 		if(coincidence==j.getPiecea(Roi).nbrPos(j.getPiecea(Roi).getX(),j.getPiecea(Roi).getY())) {
 			return true;
 		}
 	return false;
 		
 	}
-	public void EtreMangé(int x, int y, Joueur j) {
+	@Override
+	public void EtreMangé(int x, int y, IJoueur j) {
 		for(int i=0;i<j.getPieces().length;++i) {
 			if(j.getPiecea(i).getX()==x && j.getPiecea(i).getY()==y) {
 				if(j.getPiecea(i).getCol()!=getPiecea(i).getCol()) {
@@ -193,7 +225,7 @@ public abstract class Joueur {
 			}
 		}
 	}
-	protected static int chercheRoi(Joueur j) {
+	protected static int chercheRoi(IJoueur j) {
 		for(int i=0; i<j.getPieces().length;++i) {
 			if(j.getPiecea(i).estRoi()) {
 				return i;

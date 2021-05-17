@@ -2,14 +2,19 @@ package plateau;
 
 import java.util.Arrays;
 
-import piece.Piece;
 
-public class Plateau {
+import piece.IPlateau;
+
+public class Plateau implements IPlateau {
 	private String plateau[][];
 	private final int SIZE=10;
 
 	
-	
+	/**@brief :a
+	 * @param
+	 * @param
+	 * @return
+	 */
 	public Plateau() {
 		char[] alphabet = new char[SIZE];
 		int cpt=0;
@@ -33,10 +38,22 @@ public class Plateau {
         
 
 	}
+	@Override
+	/**@brief :a
+	 * @param
+	 * @param
+	 * @return
+	 */
 	public void cls(int x, int y) {
 		this.plateau[x][y]="   ";
 		
 	}
+	@Override
+	/**@brief :a
+	 * @param
+	 * @param
+	 * @return
+	 */
 	public void clsTotal() {
 		for(int i=1;i<SIZE-1;++i) {
 			for(int j=1;j<SIZE-1;++j) {
@@ -44,11 +61,22 @@ public class Plateau {
 			}
 		}
 	}
-	public void setTab(Piece a) {
+	@Override
+	/**@brief :a
+	 * @param
+	 * @param
+	 * @return
+	 */
+	public void setTab(joueur.IPiece a) {
 		this.plateau[a.getX()][a.getY()] = a.toString();
 		
 		
 	}
+	/**@brief :a
+	 * @param
+	 * @param
+	 * @return
+	 */
 	private Boolean PeutAfficher(int i, int j) {
 		if(i==0) {
 			return false;
@@ -59,6 +87,12 @@ public class Plateau {
 			return true;
 
 	}
+	@Override
+	/**@brief :a
+	 * @param
+	 * @param
+	 * @return
+	 */
 	public String toString() {
 		StringBuilder s = new StringBuilder();
 		for(int i=0;i<SIZE;++i) {

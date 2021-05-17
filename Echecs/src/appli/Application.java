@@ -2,8 +2,7 @@ package appli;
 import java.util.Scanner;
 
 import joueur.Joueur;
-import joueur.JoueurHumain;
-import joueur.JoueurMachine;
+import piece.IPlateau;
 /*30/03/21*/
 import plateau.Plateau;
 /* NON */
@@ -11,14 +10,9 @@ import plateau.Plateau;
 
 /*Vérification*/
 public class Application {
-	static Joueur j1;
-	static Joueur j2;
-	
-
-	public static boolean EstFinie() {
-		return true;
-	}
-
+	/**@brief :Affiche la demande de mode de jeu et prends en compte la reponse du joueur
+	 * @return la réponse du joueur
+	 */
 	private static String Demande() {
 		System.out.println("=============================================");
 		System.out.println("|| Quel mode de jeu souhaitez vous jouer ? ||");
@@ -38,26 +32,12 @@ public class Application {
 			
 		return entree;
 	}
-	private static void HumainVShumain() {
-		j1=null;
-		j2=null;
-		j1 = new JoueurHumain(5, true);
-		j2 = new JoueurHumain(5, true);
-	}
-	private static void HumainVSMachine() {
-		j1=null;
-		j2=null;
-		j1 = new JoueurHumain(5, true);
-		j2 = new JoueurMachine(5, true);
-	}
-	private static void MachineVSMachine() {
-		j1=null;
-		j2=null;
-		j1 = new JoueurMachine(5, true);
-		j2 = new JoueurMachine(5, true);
-	}
+	
+	
+	/**@brief : Le main
+	 */
 	public static void main(String[] args) {
-		Plateau plat = new Plateau();
+		IPlateau plat = new Plateau();
 		String mode = Demande();
 		boolean gag=false;
 		boolean finis =false;
@@ -72,27 +52,12 @@ public class Application {
 				gag=false;
 				finis= false;
 			}
-		
-		
-		if(mode.equals("1"))
-			HumainVShumain();
-		else if(mode.equals("2"))
-			HumainVSMachine();
-		else if(mode.equals("3"))
-			MachineVSMachine();
-		
-		
+
 		plat.clsTotal();
-		j1.ajoutRoi(plat, 1, 2, true);
-		j1.ajoutFou(plat, 6, 7, true);
-		j1.ajoutFou(plat, 8, 5, true);
-		j1.ajoutTour(plat, 4, 5, true);
-		j1.ajoutTour(plat, 3, 5, true);
-		j2.ajoutRoi(plat, 1, 4, false);
-		j2.ajoutFou(plat, 7, 6, false);
-		j2.ajoutFou(plat, 5, 1, false);
-		j2.ajoutTour(plat, 8, 8, false);
-		j2.ajoutTour(plat, 8, 6, false);
+		Fabrique fab = new Fabrique();
+		fab.initialisationJoueurs(mode);
+		fab.initialisation(plat, Fabrique.j1, Fabrique.j2);
+		
 		
 		
 		do {
@@ -100,33 +65,33 @@ public class Application {
 				 if(!gag) {
 					 System.out.println("C'est aux grandes lettres(BLANC)");
 					 System.out.print(plat);
-					j1.jouer(plat,j2);
-					if((j1.EstEchec(j2) && j1.EstMat(j2))|| (j2.EstEchec(j1) && j2.EstMat(j1))|| (!j1.roiEstEnVie()||!j2.roiEstEnVie())) {
+					 Fabrique.j1.jouer(plat,(Joueur) Fabrique.j2);
+					if((Fabrique.j1.EstEchec(Fabrique.j2) && Fabrique.j1.EstMat(Fabrique.j2))|| (Fabrique.j2.EstEchec(Fabrique.j1) && Fabrique.j2.EstMat(Fabrique.j1))|| (!Fabrique.j1.roiEstEnVie()||!Fabrique.j2.roiEstEnVie())) {
 						gag=true;
 					}
 				}
-			}while(j1.EstTour());
+			}while(Fabrique.j1.EstTour());
 			 
 			do{
 				if(!gag) {
 					System.out.println("C'est aux petites lettres(NOIR)");
 					System.out.print(plat);
-					j2.jouer(plat, j1);
-					if((j1.EstEchec(j2) && j1.EstMat(j2))|| (j2.EstEchec(j1) && j2.EstMat(j1)) || (!j1.roiEstEnVie()||!j2.roiEstEnVie())) {
+					Fabrique.j2.jouer(plat, (Joueur) Fabrique.j1);
+					if((Fabrique.j1.EstEchec(Fabrique.j2) && Fabrique.j1.EstMat(Fabrique.j2))|| (Fabrique.j2.EstEchec(Fabrique.j1) && Fabrique.j2.EstMat(Fabrique.j1)) || (!Fabrique.j1.roiEstEnVie()||!Fabrique.j2.roiEstEnVie())) {
 						
 						gag=true;
 					};
 				}else {
-					j2.setTour(!gag);
+					Fabrique.j2.setTour(!gag);
 					finis=true;
 				}
-			}while(j2.EstTour());			
+			}while(Fabrique.j2.EstTour());			
 		}while(!finis);
 		System.out.println(plat);
-		if(j1.getGagnant()==true) {
-			System.out.println("Joueur des PETITES lettres a gagné");
-		}else if(j2.getGagnant()==true) {
-			System.out.println("Joueur des GRANDES lettres a gagné");
+		if(Fabrique.j1.getGagnant()==true) {
+			System.out.println("Joueur des PETITES(NOIR) lettres a gagné");
+		}else if(Fabrique.j2.getGagnant()==true) {
+			System.out.println("Joueur des GRANDES(BLANCS) lettres a gagné");
 		}
 
 	}while(true);

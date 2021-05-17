@@ -1,11 +1,8 @@
 package piece;
 
-import joueur.Joueur;
-import plateau.Plateau;
-
 public class PieceFou extends Piece {
 
-	public boolean ACheminLibre(Joueur j, int Indexroi) {
+	public boolean ACheminLibre(IJoueur j, int Indexroi) {
 		int ButX = j.getPiecea(Indexroi).getX();
 		int ButY = j.getPiecea(Indexroi).getY();
 		int MonX = this.getX();
@@ -60,11 +57,11 @@ public class PieceFou extends Piece {
 		return true;
 		
 	}
-	public PieceFou(Plateau p, int x, int y, boolean couleur) {
+	public PieceFou(IPlateau p, int x, int y, boolean couleur) {
 		super(p, x, y, couleur);
 	}
 	@Override
-	public boolean estPossible(int x, int y, Joueur j) {
+	public boolean estPossible(int x, int y, IJoueur j) {
 		if(x<9 && x>0 && y<9 && y>0 ) {
 		for(int i=1;i<10;++i) {
 			if(recontrepiece(super.getX()+i, super.getY()+i, j)) {
@@ -134,7 +131,7 @@ public class PieceFou extends Piece {
 		return false;
 	}
 	@Override
-	public boolean recontrepiece(int x, int y, Joueur j) {
+	public boolean recontrepiece(int x, int y, IJoueur j) {
 		int x1 = x-1;
 		int y1=y-1;
 		if(super.getX()>x && super.getY() >y){
@@ -160,7 +157,7 @@ public class PieceFou extends Piece {
 		return false;
 	}
 	@Override
-	public boolean verificationMat(boolean[][] tab, Joueur quiApelle, Joueur j) {
+	public boolean verificationMat(boolean[][] tab, IJoueur quiApelle, IJoueur j) {
 		for(int i=0;i<tab.length;++i) {  // x
 			for(int k=0;k<tab[0].length;++k) { //y
 				if(tab[i][k]==true) {
@@ -212,10 +209,11 @@ public class PieceFou extends Piece {
 		
 	}
 	@Override
-	public boolean peutSeMettreDev(boolean[][] tab, Joueur j) {
-		// TODO Auto-generated method stub
+	public boolean peutSeMettreDev(boolean[][] tab, IJoueur j) {
+
 		return false;
 	}
+
 
 
 }

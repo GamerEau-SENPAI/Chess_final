@@ -1,17 +1,14 @@
 package piece;
 
-import joueur.Joueur;
-import plateau.Plateau;
-
 public class PieceTour extends Piece {
 
-	public PieceTour(Plateau p, int x, int y, boolean col) {
+	public PieceTour(IPlateau p, int x, int y, boolean col) {
 		super(p, x, y, col);
 		
 	}
 
 	@Override
-	public boolean estPossible(int x, int y, Joueur j) {
+	public boolean estPossible(int x, int y, IJoueur j) {
 		this.setPassage(0);
 		if(x<9 && x>0 && y<9 && y>0 ) {
 		for(int i=1;i<10;++i) {
@@ -53,7 +50,7 @@ public class PieceTour extends Piece {
 		return false;
 	}
 	@Override
-	public boolean recontrepiece(int x, int y, Joueur j) {
+	public boolean recontrepiece(int x, int y, IJoueur j) {
 		int x1 = x;
 		int y1=y;
 		if(super.getX()>x){
@@ -96,7 +93,7 @@ public class PieceTour extends Piece {
 			return "   ";
 	}
 	
-	public boolean ACheminLibre(Joueur j, int Indexroi) {
+	public boolean ACheminLibre(IJoueur j, int Indexroi) {
 		int ButX = j.getPiecea(Indexroi).getX();
 		int ButY = j.getPiecea(Indexroi).getY();
 		int MonX = this.getX();
@@ -150,7 +147,7 @@ public class PieceTour extends Piece {
 		return true;
 		
 	}
-	public boolean peutSeMettreDev(boolean tab[][], Joueur j) {
+	public boolean peutSeMettreDev(boolean tab[][], IJoueur j) {
 		//System.out.println("Verification d'une tour");
 		int x1 = super.getX();
 		int y1=super.getY();
@@ -226,7 +223,7 @@ public class PieceTour extends Piece {
 		
 	}
 	@Override
-	public boolean verificationMat(boolean[][] tab, Joueur quiApelle, Joueur j) {
+	public boolean verificationMat(boolean[][] tab, IJoueur quiApelle, IJoueur j) {
 		
 		for(int i=0;i<tab.length;++i) {  // x
 			for(int k=0;k<tab[0].length;++k) { //y
