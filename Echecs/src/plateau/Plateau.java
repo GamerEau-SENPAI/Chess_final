@@ -10,10 +10,8 @@ public class Plateau implements IPlateau {
 	private final int SIZE=10;
 
 	
-	/**@brief :a
-	 * @param
-	 * @param
-	 * @return
+	/**@brief : créer le plateau d'échecs
+	 * @return void
 	 */
 	public Plateau() {
 		char[] alphabet = new char[SIZE];
@@ -40,9 +38,9 @@ public class Plateau implements IPlateau {
 	}
 	@Override
 	/**@brief :a
-	 * @param
-	 * @param
-	 * @return
+	 * @param x[in]
+	 * @param y[in]
+	 * @return void
 	 */
 	public void cls(int x, int y) {
 		this.plateau[x][y]="   ";
@@ -50,9 +48,7 @@ public class Plateau implements IPlateau {
 	}
 	@Override
 	/**@brief :a
-	 * @param
-	 * @param
-	 * @return
+	 * @return void
 	 */
 	public void clsTotal() {
 		for(int i=1;i<SIZE-1;++i) {
@@ -62,20 +58,19 @@ public class Plateau implements IPlateau {
 		}
 	}
 	@Override
-	/**@brief :a
-	 * @param
-	 * @param
-	 * @return
+	/**@brief : change la position de la pièce à afficher 
+	 * @param a[in] : la pièce concernée
+	 * @return void
 	 */
 	public void setTab(joueur.IPiece a) {
 		this.plateau[a.getX()][a.getY()] = a.toString();
 		
 		
 	}
-	/**@brief :a
-	 * @param
-	 * @param
-	 * @return
+	/**@brief : savoir si la pièce est hors du plateau
+	 * @param i[in] : position de la pièce sur la hauteur
+	 * @param j [in] : position de la pièce sur la largeur
+	 * @return boolean
 	 */
 	private Boolean PeutAfficher(int i, int j) {
 		if(i==0) {
@@ -88,10 +83,8 @@ public class Plateau implements IPlateau {
 
 	}
 	@Override
-	/**@brief :a
-	 * @param
-	 * @param
-	 * @return
+	/**@brief : affiche le plateau
+	 * @return String
 	 */
 	public String toString() {
 		StringBuilder s = new StringBuilder();
