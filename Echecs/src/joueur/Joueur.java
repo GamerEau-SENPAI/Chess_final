@@ -27,33 +27,70 @@ public abstract class Joueur implements IJoueur {
 	}
 	
 	@Override
+	/**@brief :Donne l'indice du compteur
+	 * @return l'indice
+	 */
 	public int getCpt() {
 		return cpt;
 	}
+	/**@brief :setteur du temps d'attente pour une machine jouer
+	 * @param a[in] le temps en ms
+	 * @return void
+	 */
+	public abstract void setTemps(int a);
+	
 	
 	@Override
+	/**@brief :incrémente de 1 le compteur
+	 * @return void
+	 */
 	public void incCpt() {
 		if(this.cpt<5) {
 			this.cpt+=1;
 		}
 		
 	}
+	/**@brief : Donne le tableau boolean des cases possi@Override
+	bles autour du roi
+	 * @return Un boolean 2d
+	 */
 	public boolean[][] getTab(){
 		return this.tab;
 	}
 	@Override
+	/**@brief :Donne une la valeur d'une case précise de ce tableau
+	 * @param x [in]: la ligne
+	 * @param y [in]: la colonne 
+	 * @return vrai ou faux dependant de la valeur du tableau
+	 */
 	public boolean getTab(int x, int y){
 		return this.tab[x][y];
 	}
 	@Override
+	/**@brief :change la valeur d'une coordonné du tableau
+	 * @param  x [in] : la ligne
+	 * @param  y [in]: la colonne 
+	 * @param  etat [in]: l'état de cette coordonnée
+	 * @return vvoid
+	 */
 	public void setTab(int x, int y,boolean etat){
 		this.tab[x][y] = etat;
 	}
 	@Override
+	/**@brief :Donne la pièce demandé
+	 * @param [in] i : l'indice de la pièce
+	 * @return une Pièce
+	 */
 	public IPiece getPiecea(int i) {
 		return pieces[i];
 	}
 	@Override
+	/**@brief :change la valeur d'une coordonné du tableau
+	 * @param  x [in] : la ligne
+	 * @param  y [in]: la colonne 
+	 * @param  etat [in]: l'état de cette coordonnée
+	 * @return vvoid
+	 */
 	public void setPiece(int i, IPiece c) {
 		if(i>4) {
 			i=5;
@@ -61,15 +98,25 @@ public abstract class Joueur implements IJoueur {
 		pieces[i]=c;
 	}
 	@Override
+	/**@brief :Donne true si c'est au tour du joueur qui appelle 
+	 * @return True ou false
+	 */
 	public boolean EstTour() {
 		return this.monTour;
 	}
 	@Override
+	/**@brief :Change la valeur du tour
+	 * @param [in] tour : La nouvelle valeur
+	 * @return void
+	 */
 	public void setTour(boolean tour) {
 		this.monTour = tour;
 	}
 	
 	@Override
+	/**@brief :Donne la liste de pièces de celui qui l'appelle
+	 * @return Tableau de type Pièce
+	 */
 	public IPiece[] getPieces() {
 		return this.pieces;
 	}
@@ -140,15 +187,25 @@ public abstract class Joueur implements IJoueur {
 		return -1;
 	}
 	@Override
+	/**@brief : Permets de changer la valeur de gagnant
+	 * @param [in] etat : La nouvelle valeur
+	 * @return void
+	 */
 	public void setGagnant(boolean etat) {
 		this.gagant = etat;
 	}
 	@Override
+	/**@brief :Donne l'état de gagnant
+	 * @return true ou false
+	 */
 	public boolean getGagnant() {
 		return this.gagant;
 	}
 	
 	@Override
+	/**@brief :Dit si le roi de celui qui l'appel est vivant
+	 * @return true ou false
+	 */
 	public boolean roiEstEnVie() {
 		int roi = chercheRoi(this);
 		if(this.getPiecea(roi).EstVivante()) {
@@ -158,6 +215,10 @@ public abstract class Joueur implements IJoueur {
 		return false;
 	}
 	@Override
+	/**@brief : Dit si Echec est Mat
+	 * @param [in] joueur : le joueur concerné
+	 * @return true ou false
+	 */
 	public boolean EstMat(IJoueur j) {
 			int Viseur = IndexRoiEstVisé(j);
 			int Roi= chercheRoi(this);
@@ -193,6 +254,10 @@ public abstract class Joueur implements IJoueur {
 		
 	}
 	@Override
+	/**@brief : Dit si il y a Echec
+	 * @param [in] joueur : le joueur concerné
+	 * @return true ou false
+	 */
 	public boolean EstEchec(IJoueur j) {
 		//int verif=0;
 		int Roi= chercheRoi(j);
@@ -216,6 +281,12 @@ public abstract class Joueur implements IJoueur {
 		
 	}
 	@Override
+	/**@brief : Mange la pièce dans ces coordonnées
+	 * @param  x [in] : la ligne
+	 * @param  y [in]: la colonne 
+	 * @param [in] joueur : le joueur concerné
+	 * @return void
+	 */
 	public void EtreMangé(int x, int y, IJoueur j) {
 		for(int i=0;i<j.getPieces().length;++i) {
 			if(j.getPiecea(i).getX()==x && j.getPiecea(i).getY()==y) {
@@ -233,6 +304,9 @@ public abstract class Joueur implements IJoueur {
 		}
 		return -1;
 	}
+	/**@brief : Dit s'il reste des pièces envie
+	 * @return True ou false
+	 */
 	public boolean RestePiece() {
 		for(int i=0;i<this.getPieces().length;++i) {
 			if(this.getPiecea(i).EstVivante()) {
@@ -242,6 +316,11 @@ public abstract class Joueur implements IJoueur {
 		}
 		return false;
 	}
+	/**@brief : Dit s'il dans ces coordonnées il y a une pièce a celui qui appelle la fonction
+	 * @param  x [in] : la ligne
+	 * @param  y [in]: la colonne 
+	 * @return True ou false
+	 */
 	public boolean estOccupeParMoi(int x, int y) {
 		for(int i=0; i< this.getPieces().length;++i) {
 			if(x==this.getPiecea(i).getX() || y==this.getPiecea(i).getY())

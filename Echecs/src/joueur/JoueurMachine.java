@@ -2,18 +2,30 @@ package joueur;
 
 import java.util.Random;
 
-import plateau.IPiece;
 
 
 
 
 public class JoueurMachine extends Joueur {
 	private boolean reussi=true;
+	public int tempsattenteTest = 500;
 	private boolean dejajoue=false;
 	public JoueurMachine(int qte, boolean monTour) {
 		super(qte, monTour);
 	}
+	/**@brief : Permets de changer le temps que prends une machine a jouer
+	 * @param a[in] : le temps en ms
+	 * @return void
+	 */
+	public void setTemps(int a) {
+		tempsattenteTest = a;
+	}
 	@Override
+	/**@brief : Permets a un joueur de jouer un coup
+	 * @param  plat [in] : la ligne
+	 * @param  j [in]: le joueur opposé
+	 * @return void
+	 */
 	public void jouer(piece.IPlateau plat, Joueur j) {
 		if(roiEstEnDanger(j)) {
 			jouerEvasion(plat, j);
@@ -33,7 +45,7 @@ public class JoueurMachine extends Joueur {
 		}
 		}
         	try {
-        		  Thread.sleep(500);
+        		  Thread.sleep(tempsattenteTest);
         		} catch (InterruptedException e) {e.printStackTrace();}
         //dejajoue=false;
         	reussi=true;
@@ -46,11 +58,23 @@ public class JoueurMachine extends Joueur {
 	
 	
 	
-	
+	/**@brief : Me dit si une piece donné vise le roi
+	 * @param  a[in] : indice de la piece
+	 * @param  j [in]: le joueur opposé
+	 * @return true si une pièce est visé
+	 */
 	private boolean unePieceViseRoi(int a,Joueur j) {
 		int roi = chercheRoi(j);
 		return super.getPiecea(a).estPossible(j.getPiecea(roi).getX(), j.getPiecea(roi).getY(), j);
 	}
+	
+	/**@brief : Joue pour le roi ennemi
+	 * @param  roi[in] : indice du roi
+	 * @param  plat[in]: Le plateau concerné
+	 * @param  j[in]: Le jouer ennemi
+	 * @param  a[in] : indice de la piece
+	 * @return void
+	 */
 	private void JouerPourLeRoi(int roi, piece.IPlateau plat, Joueur j, int a) {
 		System.out.println("2-La pièce" + super.getPiecea(a).toString() + " a bougé en X : " + j.getPiecea(roi).getX() + " Et Y : " + j.getPiecea(roi).getY());
 		int x = j.getPiecea(roi).getX();
@@ -68,7 +92,11 @@ public class JoueurMachine extends Joueur {
 			super.setTour(true);
 			}
 	}
-	
+	/**@brief : Joue Aleatoirement
+	 * @param  plat[in]: Le plateau concerné
+	 * @param  j[in]: Le jouer ennemi
+	 * @return void
+	 */
 	private void jouerAleatoirement(piece.IPlateau plat, Joueur j) {
 		Random rand = new Random();
         int i = rand.nextInt(super.getPieces().length);
@@ -96,6 +124,11 @@ public class JoueurMachine extends Joueur {
 	    		}
             }while(reussi);
 	}
+	
+	/**@brief : Me dit si mon roi est en danger
+	 * @param  j[in]: Le jouer ennemi
+	 * @return true si c'est le cas
+	 */
 	private boolean roiEstEnDanger(Joueur j) {
 		int roi = chercheRoi(this);
 		for(int i=0;i<j.getPieces().length;++i) {
@@ -106,6 +139,12 @@ public class JoueurMachine extends Joueur {
 		return false;
 		
 	}
+	
+	/**@brief : Joue un coup ou ses pieces ne peuvent pas m'attaquer
+	 * @param  plat[in]: Le plateau concerné
+	 * @param  j[in]: Le jouer ennemi
+	 * @return void
+	 */
 	private void jouerEvasion(piece.IPlateau plat, Joueur j) {
 		System.out.println("JouerEvasion()");
 		int roi = chercheRoi(this);
@@ -144,6 +183,14 @@ public class JoueurMachine extends Joueur {
 			}
 		}
 	}
+	
+	/**@brief : Complement a jouerEvasion (Joue un coup pour fuir) 
+	 * @param  plat[in]: Le plateau concerné
+	 * @param  j[in]: Le jouer ennemi
+	 * @param  x[in]: la coordonné X de mon roi
+	 * @param  y[in]: la coordonné Y de mon roi
+	 * @return void
+	 */
 	private void jouerAutrePart(int x, int y, Joueur j, piece.IPlateau plat) {
 		Random rand = new Random();
 		int roi = chercheRoi(this);

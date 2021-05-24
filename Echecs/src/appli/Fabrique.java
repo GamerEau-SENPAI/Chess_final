@@ -12,8 +12,8 @@ import piece.PieceTour;
 
 
 public class Fabrique implements piece.IFabrique {
-	static IJoueur j1;
-	static IJoueur j2;
+	private static IJoueur j1;
+	private static IJoueur j2;
 	private final static int TAILLE =8;
 	private final static int NBRP =10;
 	private final static int QTEPIECE =5;
@@ -94,7 +94,6 @@ public class Fabrique implements piece.IFabrique {
 	        	x = rand.nextInt(TAILLE-1);
 		        y = rand.nextInt(TAILLE-1);
 	        }while(existe(x,y,LesX,LesY));
-		        System.out.println("Ajout roi en " + x+1 + " " + y+1);
 	        	this.ajoutRoi(j1,plat, x+1, y+1, true);
 	        	LesX[compteur]=x;
 	        	LesY[compteur]=y;
@@ -105,7 +104,6 @@ public class Fabrique implements piece.IFabrique {
 		        y = rand.nextInt(TAILLE-1);
 	        }while(existe(x,y,LesX,LesY));
 	        	this.ajoutFou(j1,plat, x+1, y+1, true);
-	        	System.out.println("Ajout fou en " + x+1 + " " + y+1);
 	        	nbr++;
 	        	LesX[compteur]=x;
 	        	LesY[compteur]=y;
@@ -191,20 +189,20 @@ public class Fabrique implements piece.IFabrique {
 	 * @return void
 	 */
 	private static void HumainVShumain() {
-		j1=null;
-		j2=null;
-		j1 = new JoueurHumain(QTEPIECE, true);
-		j2 = new JoueurHumain(QTEPIECE, true);
+		setJ1(null);
+		setJ2(null);
+		setJ1(new JoueurHumain(QTEPIECE, true));
+		setJ2(new JoueurHumain(QTEPIECE, true));
 	}
 	
 	/**@brief : Initialise le jeu, un humain contre une machine
 	 * @return void
 	 */
 	private static void HumainVSMachine() {
-		j1=null;
-		j2=null;
-		j1 = new JoueurHumain(QTEPIECE, true);
-		j2 = new JoueurMachine(QTEPIECE, true);
+		setJ1(null);
+		setJ2(null);
+		setJ1(new JoueurHumain(QTEPIECE, true));
+		setJ2(new JoueurMachine(QTEPIECE, true));
 	}
 	
 	
@@ -212,10 +210,10 @@ public class Fabrique implements piece.IFabrique {
 	 * @return void
 	 */
 	private static void MachineVSMachine() {
-		j1=null;
-		j2=null;
-		j1 = new JoueurMachine(QTEPIECE, true);
-		j2 = new JoueurMachine(QTEPIECE, true);
+		setJ1(null);
+		setJ2(null);
+		setJ1(new JoueurMachine(QTEPIECE, true));
+		setJ2(new JoueurMachine(QTEPIECE, true));
 	}
 	
 	
@@ -232,5 +230,32 @@ public class Fabrique implements piece.IFabrique {
 		else if(mode.equals("3"))
 			MachineVSMachine();
 		
+	}
+	/**@brief : getteur de j1 pour les test junit
+	 * @return Le joueur j1
+	 */
+	public static IJoueur getJ1() {
+		return j1;
+	}
+	/**@brief : setteur de j1 pour les test junit
+	 * @param j1 La valeur a etre donné au joueur de la fabrique
+	 * @return void
+	 */
+	public static void setJ1(IJoueur j1) {
+		Fabrique.j1 = j1;
+	}
+	
+	/**@brief : getteur de j2 pour les test junit
+	 * @return Le joueur j2
+	 */
+	public static IJoueur getJ2() {
+		return j2;
+	}
+	/**@brief : setteur de j2 pour les test junit
+	 * @param j2La valeur a etre donné au joueur de la fabrique
+	 * @return void
+	 */
+	public static void setJ2(IJoueur j2) {
+		Fabrique.j2 = j2;
 	}
 }

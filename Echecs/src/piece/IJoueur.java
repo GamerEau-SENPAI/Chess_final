@@ -4,8 +4,11 @@ import joueur.IPiece;
 import joueur.Joueur;
 import piece.IJoueur;
 public interface IJoueur {
-	
-	
+	/**@brief :setteur du temps d'attente pour une machine jouer
+	 * @param a[in] le temps en ms
+	 * @return void
+	 */
+	void setTemps(int a);
 	/**@brief :Donne l'indice du compteur
 	 * @return l'indice
 	 */
@@ -18,7 +21,8 @@ public interface IJoueur {
 	void incCpt();
 	
 	
-	/**@brief : Donne le tableau boolean des cases possibles autour du roi
+	/**@brief : Donne le tableau boolean des cases possi@Override
+	bles autour du roi
 	 * @return Un boolean 2d
 	 */
 	boolean[][] getTab();

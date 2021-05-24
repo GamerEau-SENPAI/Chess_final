@@ -48,10 +48,22 @@ public interface IPiece {
 	 */
 	int getX();
 
+	/**@brief : vérifie
+	 * @param tab[in]
+	 * @param quiAppelle[in]
+	 * @param j[in]
+	 * @return boolean
+	 */
 	boolean verificationMat(boolean[][] tab, IJoueur quiApelle, IJoueur j);
 
+	/**@brief : savoir si une pièce est le Roi
+	 * @return boolean
+	 */
 	boolean estRoi();
 
+	/**@brief : permet d'obtenir la valeur couleur
+	 * @return int : cette couleur
+	 */
 	boolean getCol();
 
 
@@ -60,12 +72,34 @@ public interface IPiece {
 	 */
 	int getY();
 
+	/**@brief : permet de savoir si le roi d'un joueur a un chemin libre
+	 * @param indexRoi[in]
+	 * @param j[in] 
+	 * @return true s'il a chemin libre
+	 */
 	boolean ACheminLibre(IJoueur j, int Indexroi);
 
+	
+	/**@brief : permet de savoir si une piece du joueur j peut se mettre devant
+	 * @param tab[][][in]
+	 * @param j[in] 
+	 * @return true si une pièce peut se mettre devant 
+	 */
 	boolean peutSeMettreDev(boolean tab[][], IJoueur j);
 
+	
+	/**@brief : representation d'une pièce en texte
+	 * @return String de la pièce
+	 */
 	String toString();
 
+	
+	/**@brief : Dit si on rencontre une pièce (Du joueur opposé) dans une coordonnée donné
+	 * @param x[in] : Coordonnée Y
+	 * @param y[in] : coordonnée X
+	 * @param j[in] : Le joueur oppsosés
+	 * @return true si une pièce est recontré
+	 */
 	boolean recontrepiece(int x, int y, IJoueur j);
 
 }

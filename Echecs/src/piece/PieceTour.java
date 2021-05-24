@@ -148,67 +148,46 @@ public class PieceTour extends Piece {
 		
 	}
 	public boolean peutSeMettreDev(boolean tab[][], IJoueur j) {
-		//System.out.println("Verification d'une tour");
 		int x1 = super.getX();
 		int y1=super.getY();
 		for(int i=0;i<tab.length;++i) {
 			for(int k=0;k<tab[0].length;++k) {
 				if(tab[i][k]==true) {
-					//System.out.println("		Pour x : " + i + " Pour y : " + k);
-					//System.out.println("resultat du 1er if :");
 					if( x1==i && y1<k) {
 						for(int a=y1;a<k;++a) {
-							//System.out.println(true);
 							for(int b=0;b<j.getPieces().length;++b) {
-								//System.out.print("X1 et Y1 : ");
-								//System.out.println(x1 + " " + a);
 								if(this.estPossible(x1, a, j) && j.getPiecea(b).estPossible(x1, a, j)) {
-									//System.out.println(true);
 									return true;
 									
 								}
 							}
 						}
 					}
-					//System.out.println("resultat du 2eme if :");
 					if(x1==i && y1>k) {
 						for(int a=y1;a<k;++a) {
-							//System.out.println(true);
 							for(int b=0;b<j.getPieces().length;++b) {
-								//System.out.print("X1 et Y1 : ");
-								//System.out.println(x1 + " "+ a);
 								if(this.estPossible(x1, a, j) && j.getPiecea(b).estPossible(x1, a, j) ) {
-									//System.out.println(true);
 									return true;
 									
 								}
 							}
 						}
 					}
-					//System.out.println("resultat du 3eme if :");
 					if(x1<i && y1==k) {
 						for(int a=x1;a<i;++a) {
-							//System.out.println(true);
 							for(int b=0;b<j.getPieces().length;++b) {
-								//System.out.print("X1 et Y1 : ");
-								//System.out.println(a + " " + y1);
 								if(this.estPossible(a, y1, j) && j.getPiecea(b).estPossible(a, y1, j) ) {
-									//System.out.println(true);
 									return true;
 									
 								}
 							}
 						}
 					}
-					//System.out.println("resultat du 4eme if :");
 					if(x1>i && y1==k) {
-						//System.out.println(true);
 						for(int a=x1;a>i;--a) {
 							for(int b=0;b<j.getPieces().length;++b) {
-								//System.out.print("X1 et Y1 : ");
-								//System.out.println(a + " " + y1);
+
 								if(this.estPossible(a, y1, j) && j.getPiecea(b).estPossible(a, y1, j) ) {
-									//System.out.println(true);
 									return true;
 								}
 							}
@@ -218,7 +197,6 @@ public class PieceTour extends Piece {
 				}
 			}
 		}
-		//System.out.println(false);
 		return false;
 		
 	}

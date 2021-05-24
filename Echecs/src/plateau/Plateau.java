@@ -37,9 +37,9 @@ public class Plateau implements IPlateau {
 
 	}
 	@Override
-	/**@brief :a
-	 * @param x[in]
-	 * @param y[in]
+	/**@brief :nettoie une case donné
+	 * @param x[in] : le x
+	 * @param y[in] : le y 
 	 * @return void
 	 */
 	public void cls(int x, int y) {
@@ -47,7 +47,7 @@ public class Plateau implements IPlateau {
 		
 	}
 	@Override
-	/**@brief :a
+	/**@brief :Vide toute les cases du tableau
 	 * @return void
 	 */
 	public void clsTotal() {

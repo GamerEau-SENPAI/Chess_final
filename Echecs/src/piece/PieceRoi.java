@@ -48,7 +48,10 @@ public class PieceRoi extends Piece {
 	public boolean estRoi() {
 		return true;
 	}
-	
+	/**@brief Vérifie que X ne depasse pas les limites du platea
+	 * @param x[in] : le x en question
+	 * @return true si c'est le cas
+	 */
 	private static boolean verif(int x) {
 		if(x<9 && x>0) {
 			return true;
@@ -97,11 +100,6 @@ public class PieceRoi extends Piece {
 		return te;
 	}
 	@Override
-	public boolean recontrepiece(int x, int y, IJoueur j) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
 	public boolean verificationMat(boolean[][] tab, IJoueur quiApelle, IJoueur j) {
 		// TODO Auto-generated method stub
 		return false;
@@ -111,6 +109,12 @@ public class PieceRoi extends Piece {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	@Override
+	public boolean recontrepiece(int x, int y, IJoueur j) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
 
 
 
