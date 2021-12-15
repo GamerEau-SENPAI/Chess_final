@@ -5,7 +5,8 @@ Vous pouvez jouer en 3 modes :
  * Humain VS Humain
  * Humain VS Machine
  * Machine VS Machine  
-Ou la machine a une certaine intelligence  
+
+Où la machine a une certaine intelligence  
 
 De plus, dû au fait que mes camarades n’ont pas voulu participer à ce projet, je l’ai développé seul.
 Ça été une expérience unique je vous conseille fortement de vérifie le répo GitHub
